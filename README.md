@@ -1,0 +1,2 @@
+# hydrus
+水资源water resource方面利用python做模型model、算法algorithm和开发software development等工作所需的基础技能树
