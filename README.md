@@ -14,6 +14,7 @@
 - 3.科学计算库
   - numpy
   - pandas
+  - sklearn
   - netcdf python库
 - 4.常用算法库
   - moea框架-platypus
