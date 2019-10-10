@@ -20,9 +20,11 @@
   - moea框架-platypus
   - 深度学习框架pytorch
   - 深度学习框架TensorFlow-Keras
+  - 水文基础计算库
 - 5.常用算法应用示例
   - CNN模型做时间序列模拟
   - CNN模型数字图像识别
+  - 贝叶斯优化
 
 ## 参与贡献
 
