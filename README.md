@@ -9,8 +9,10 @@
 - 1.基础环境搭建
   - windows10下TensorFlow2.0及Pytorch1.2配置
   - Ubuntu18.04下Pytorch1.2配置
+  - 使用jupyter（vscode）
 - 2.基础语法及基本库
   - python基本库简单示例
+  - python测试
 - 3.科学计算库
   - numpy
   - pandas
