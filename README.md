@@ -13,6 +13,7 @@
 - 2.基础语法及基本库
   - python基本库简单示例
   - python测试
+  - matplotlib库使用方式
 - 3.科学计算库
   - numpy
   - pandas
