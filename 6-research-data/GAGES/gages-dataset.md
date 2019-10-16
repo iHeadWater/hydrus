@@ -435,7 +435,7 @@ RAW_DIS_NEAREST_DAM：离站site最近的大坝到site的直线距离。
 - Regions：ECO3_SITE/HLR100M_SITE/HUC8_SITE/USDA_LRR_SITE/NUTR_ECO_SITE/ECO2_BAS_DOM/ECO3_BAS_DOM/ECO3_BAS_PCT/NUTR_BAS_DOM/NUTR_BAS_PCT/HLR_BAS_DOM_100M/HLR_BAS_PCT_100M/PNV_BAS_DOM/PNV_BAS_PCT。都是表述的站点所处的region是什么。
   ECO3_SITE：site所处的Level III的ecoregion；
   HLR100M_SITE：site所处的Hydrologic Landscape Region；
-  USDA_LRR_SITE：USDA Land Resource Region (LRR) code
+  USDA_LRR_SITE：USDA（Department of Agriculture） Land Resource Region (LRR) code
   NUTR_ECO_SITE：Nutrient ecoregion at the gage location；
   PNV_BAS_DOM：Dominant (highest % of area) Potential Natural Vegetation (PNV) within the watershed.
 - Soils：土壤特征描述的是在水文group里土壤的比例，以及各个类型土壤的各项指标数据
