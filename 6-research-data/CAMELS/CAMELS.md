@@ -47,21 +47,51 @@ USGS-II数据集包括有超过9000个站点的地理空间信息。其中有一
 
 因为水文模型有不同尺度空间信息作为输入，包括流域级entire watershed（lumped）、elevation bands、水文相应单元hydrologic response units（HRUs）或者grids。所以驱动数据也相应的计算到不同尺度上。
 
-流域空间配置根据MoWS（USGS Modeling of Watershed Systems）组的水文模型的geospatial fabric建立。geospatial fabric是国家水文数据National Hydrography Data set的面向流域分析，NHD包含了USGS的径流测站点，水文相应单元边界和径流分割，而geospatial fabric则包含了其中的需要的站点及其上游流域面积和流域HRUs；
+流域空间配置根据MoWS（USGS Modeling of Watershed Systems）group的水文模型的geospatial fabric建立。geospatial fabric介绍见下文；
 
 DEM数据作用于geospatial fabric数据上以创建每个流域的高程轮廓shape文件；
 
 用由USGS的Center for Integrated Data Analytics（CIDA）开发的USGS Geo Data Portal（GDP）来生产基于面积权重的驱动数据；
 
-Daymet数据被选为主要的gridded气象数据集来推求径流模拟所需的驱动数据。Daymet数据是日尺度的1km*1km网格的覆盖全美大陆数据集。包括温度、降雨、短波辐射、湿度、日长等；
+Daymet数据被选为主要的gridded气象数据集来推求径流模拟所需的驱动数据。Daymet数据是日尺度的1km*1km网格的覆盖全美大陆数据集。包括：
+
+- 温度temperature
+- 降雨precipitation
+- 短波辐射shortwave downward radiation
+- 日长day length；
+- 湿度humidity
+- snow equivalent
 
 PET数据Daymet没有，所以使用Priestly-Taylor方法进行估算；
 
-National Land Data Assimilation System（NLDAS）12km网格数据用来提供basin lumped尺度的日驱动数据；
+文献[A Long-Term Hydrologically Based Dataset of Land Surface Fluxes and States for the Conterminous United States](https://journals.ametsoc.org/doi/full/10.1175/1520-0442%282002%29015%3C3237%3AALTHBD%3E2.0.CO%3B2)和National Land Data Assimilation System（NLDAS）12km网格数据集用来提供basin lumped尺度的日驱动数据；
 
 HCDN-2009 gages的日径流数据从USGS官网获取。
 
-其余关于数据的细节就不再表述了，详情可参考原文。
+其余关于数据的细节就不再表述了，详情可参考原文。以下是一些补充说明。
+
+### Geospatial Fabric
+
+Geospatial Fabric是一个数据集。第一个发布的版本包括两个单独的文件。一个是针对the GIS feature geometry；另一个是the set of attribute tables from which PRMS（Precipitation Runoff Modeling System） parameter files are generated。
+
+两个产品都在[National Hydrologic Modeling Framework](https://www.sciencebase.gov/catalog/folder/4f4e4773e4b07f02db47e234) [社区网站](www.sciencebase.gov)中发布。
+
+数据集有一个完整的FGDC-compliant元数据。数据集是ESRI文件geodatabases格式，根据Geospatial Fabric Regions（如下图所示,geo fabric regions更像是一个纯粹的地理拼图）进行组织。
+
+![GFR](MapOfRegions.png)
+
+Geospatial Fabric提供了一个consistent, documented, and topologically connected set of spatial features，为水文建模创建了一个abstracted stream/basin network of features.
+
+Geospatial Fabric (GF) data set中包含的GIS向量涵盖全美。Four GIS feature classes are provided for each Region:
+
+- the Region outline ("one")
+- Points of Interest ("POIs")
+- a routing network ("nsegment")
+- Hydrologic Response Units ("nhru")
+
+Geospatial Fabric Regions和用来组织NHDPlus v.1 dataset (US EPA and US Geological Survey, 2005)的区域是一样的。不过Geospatial Fabric Regions仍然是一个全新的数据集，已经被用来广泛支持regional and national scale的水文模型应用了。
+
+总之Geospatial Fabric数据集是国家水文数据National Hydrography Data set流域分析用的。国家水文数据包含了USGS的径流测站点，水文相应单元边界和径流分割，而geospatial fabric则包含了其中的需要的站点及其上游流域面积和流域HRUs。
 
 ## CAMELS数据集
 
@@ -102,9 +132,180 @@ CAMELS数据集全称为Catchment Attributes and Meteorology for Large-sample St
 
 #### 数据项
 
-- Location and topography
-- Climate indices
-- Hydrological signatures
-- Land cover characteristics
-- Soil characteristics
-- Geological characteristics
+##### Location and topography
+
+| 属性               | 描述                            | 单位              | 数据源            |
+| ------------------ | ------------------------------- | ----------------- | ----------------- |
+| gauge_id           | 8位USGS HU编码                  | -                 | USGS data         |
+| huc_02             | 2位USGS HU编码                  | -                 | USGS data         |
+| gauge_name         | gauge名+state                   |                   | USGS data         |
+| gauge_lat          | 纬度                            | $^\circ$N         | USGS data         |
+| gauge_lon          | 经度                            | $^\circ$E         | USGS data         |
+| elev_mean          | 流域平均高程                    | m above sea level | USGS data         |
+| slope_mean         | 流域平均坡度                    | m km$^{-1}$       | USGS data         |
+| area_gages2        | GAGESII计算的流域面积           | km$^2$            | USGS data         |
+| area_geospa_fabric | geospatial fabric估算的流域面积 | km$^2$            | geospatial fabric |
+
+每个catchment都有以上各类属性。
+使用geospatial fabric数据集和GAGES-II数据集计算的流域面积有差别。geospatial fabric数据集主要focus continental-scale的水文建模，因此有些差异是在geospatial fabric数据集开发的时候就存在了。所以如果与GAGES-II差别较大，最好不要使用。使用GAGES-II的数据。
+
+##### Climate indices
+
+| 属性             | 描述                                | 单位           | 数据源 |
+| ---------------- | ----------------------------------- | -------------- | ------ |
+| p_mean           | 日均降水                            | mm day$^{-1}$  | Daymet |
+| pet_mean         | 日均PET                             | mm day$^{-1}$  | Daymet |
+| aridity          | PET/P 日均PET与日均降雨比值         | -              | Daymet |
+| p_seasonality    | 降水的seasonality和timing           | -              | Daymet |
+| frac_snow        | 降水中雪的形式的比例                | -              | Daymet |
+| high_prec_freq   | 5倍以上日均降水的降水天数的频率     | days yr$^{-1}$ | Daymet |
+| high_prec_dur    | 5倍以上日均降水的降水的平均持续时间 | days           | Daymet |
+| high_prec_timing | 5倍以上日均降水的降水发生的季节     | season         | Daymet |
+| low_prec_freq    | 降雨小于1mm/day的dry days的频率     | days yr$^{-1}$ | Daymet |
+| low_prec_dur     | dry days的平均持续时间              | days           | Daymet |
+| low_prec_timing  | 大多数dry days发生的季节            | season         | Daymet |
+
+Climate indices使用N15的Daymet气象驱动数据推求的。所有climate indices和下面的hydrological signatures计算的时期都是从1989.10.01到2009.09.30，即水文年1990年到2009年。因为之前有的部分有数据缺失。并且这部分数据腿与推求climatological indices是足够长的了。
+
+indices很多，选择上表中所示这些足够支持对水文过程的研究了。这些指标在两个timescale上，一个是daily，一个是seasonal。在seasonal尺度上，计算了是哪个indices：aridity, the fraction of the precipitation falling as snow, 和the seasonality and timing of precipitation.
+这三个指标很好地指示了平均的气候条件，但是不能考虑极端事件，所以再加上high和low的indices。
+
+对p_seasonality的补充说明：
+参考文献[Analytical model of seasonal climate impacts on snow hydrology:
+Continuous snowpacks](https://www.sciencedirect.com/science/article/abs/pii/S030917080900102X?via%3Dihub)
+
+Suppose that, at a point, the typical seasonal variability of precipitation
+and air temperature can be modeled as sine curves.
+
+##### Hydrological signatures
+
+| 属性           | 描述                                                                | 单位           | 数据源    |
+| -------------- | ------------------------------------------------------------------- | -------------- | --------- |
+| q_mean         | 日均径流                                                            | mm day$^{-1}$  | USGS data |
+| runoff_ratio   | 径流比例，日均径流与日均降水比值                                    | -              | USGS data |
+| stream_elas    | 径流降水弹性                                                        | -              | USGS data |
+| slope_fdc      | 径流duration curve的斜率（between log形式的33rd和66th径流百分位数） | -              | USGS data |
+| baseflow_index | 基流指数，日均基流与日均径流之比                                    | -              | USGS data |
+| hfd_mean       | 自10月1日起的累积径流量为年径流量一半的日期                         | day of year    | USGS data |
+| Q5             | 5% flow quantile（low flow）                                        | mm day$^{-1}$  | USGS data |
+| Q95            | 95% flow quantile（high flow）                                      | mm day$^{-1}$  | USGS data |
+| high_q_freq    | high-flow（大于9倍的日径流中值）日子的频率                          | days yr$^{-1}$ | USGS data |
+| high_q_dur     | high-flow（大于9倍的日径流中值）事件的平均duration                  | days           | USGS data |
+| low_q_freq     | low-flow（小于0.2倍的日径流中值）日子的频率                         | days yr$^{-1}$ | USGS data |
+| low_q_dur      | high-flow（小于0.2倍的日径流中值）事件的平均duration                | days           | USGS data |
+| zero_q_freq    | Q=0的日子的频率                                                     | %              | USGS data |
+
+水文signatures的选择和climate indices类似，也是选择能capture baseline和low、high flows的。所有signatures都由径流计算得来。
+
+补充说明stream_elas：径流对降雨变化的气候变化相关，在这里通过计算年降雨和径流之间的弹性来表示。
+
+##### Land cover characteristics
+
+| 属性                | 描述                                 | 单位 | 数据源    |
+| ------------------- | ------------------------------------ | ---- | --------- |
+| forest_frac         | 森林比例                             | -    | USGS data |
+| lai_max             | 月均最大叶面积指数                   | -    | MODIS     |
+| lai_diff            | 月均最大最小叶面积指数的差           | -    | MODIS     |
+| gvf_max             | 绿色植被比例月均值最大值             | -    | MODIS     |
+| gvf_diff            | 绿色植被比例月均值最大值与最小值的差 | -    | MODIS     |
+| dom_land_cover      | 主要land cover                       | -    | MODIS     |
+| dom_land_cover_frac | 主要土地覆盖有关的流域面积的比例     | -    | MODIS     |
+| root_depth_XX       | root depth                           | m    | MODIS     |
+
+GVF和LAI是植被密度的两个关键指标，分别估计了植被的垂直和水平方面密度。从Moderate Resolution Imaging Spectroradiometer（MODIS）数据推求的1km land cover产品来估计这些指标的月尺度值。
+
+此外，基于MODIS数据推求得到的International Geosphere-Biosphere Programme(IGBP)分类，可以得到land cover分类相关的指标数据。
+
+最后基于每个格点的IGBP分类，估计了root_depth分布。该分布用一个两参数方程进行估计。随着土壤深度的增加，root比例指数减少，即占根系统50%的土壤层深度对应在0.12m到0.26m范围内的某一深度，占99%的基本对应在1.4到2.4m之间。这两个深度通常称为rooting depth。
+
+关于为什么要考虑root depth，可参考文献[Global Vegetation Root Distribution for Land Modeling](https://doi.org/10.1175/1525-7541(2001)002<0525:GVRDFL>2.0.CO;2).
+
+Vegetation roots are the primary pathway for water
+and nutrient uptake by plants and play an important role in terrestrial carbon cycling (e.g., Nepstad et al. 1994; Jackson et al. 1997; Dickinson et al. 1998). Most climate models have emphasized the role of roots in water up- take by implicitly or explicitly including roots (includ- ing the rooting zone) as one ofthe factors that determine the water holding capacity of the land surface.
+
+##### Soil characteristics
+
+| 属性                 | 描述                                         | 单位        | 数据源                           |
+| -------------------- | -------------------------------------------- | ----------- | -------------------------------- |
+| soil_depth_pelletier | 到基岩的深度（最大50m）                      | m           | Pelletier(2016)                  |
+| soil_depth_statsgo   | 土壤深度（最大1.5m）,水层和基岩层之外的层    | m           | Miller and White (1998)– STATSGO |
+| soil_porosity        | 体积孔隙率                                   | -           | Miller and White (1998)– STATSGO |
+| soil_conductivity    | 饱和水力传导度                               | cm h$^{-1}$ | Miller and White (1998)– STATSGO |
+| max_water_content    | 最大含水量                                   | m           | Miller and White (1998)– STATSGO |
+| sand_frac            | 沙的比例                                     | %           | Miller and White (1998)– STATSGO |
+| silt_frac            | 淤泥的比例                                   | %           | Miller and White (1998)– STATSGO |
+| clay_frac            | 黏土的比例                                   | %           | Miller and White (1998)– STATSGO |
+| water_frac           | 水在最上层1.5m里的比例                       | %           | Miller and White (1998)– STATSGO |
+| organic_frac         | organic material在soil_depth_statsgo中的比例 | %           | Miller and White (1998)– STATSGO |
+| other_frac           | 其他部分在soil_depth_statsgo中的比例         | %           | Miller and White (1998)– STATSGO |
+
+土壤特性主要基于State Soil Geographic Database(STATSGO)数据集推求。文献[Miller and White (1998)](https://doi.org/10.1175/1087-3562(1998)002<0001:ACUSMS>2.3.CO;2)将top2.5m的土壤离散划分成了11层，厚度随着深度增加而增大。每层根据STATSGO数据确定主要的soil texture类型。考虑了16类，12个美国农业部（USDA）的soil texture类型和4个non-soil类型——organic material/water/bedrock/other。
+
+通过多元回归，根据sand和clay比例，推求每层的饱和水力传导度和体积孔隙率。
+
+关于Miller and White (1998)文献：
+create map coverages of soil properties including soil texture and rock fragment classes, depth-to-bedrock, bulk density, porosity, rock fragment volume, particle-size (sand, silt, and clay) fractions, available water capacity, and hydrologic soil group.
+
+##### Geological characteristics
+
+| 属性                | 描述                               | 单位 | 数据源  |
+| ------------------- | ---------------------------------- | ---- | ------- |
+| geol_class_1st      | 流域最常见的地质类型               | -    | GLiM    |
+| geol_class_1st_frac | 最常见地质类型流域面积的比例       | -    | GLiM    |
+| geol_class_2nd      | 流域第二常见的地质类型             | -    | GLiM    |
+| geol_class_2nd_frac | 第二常见地质类型流域面积的比例     | -    | GLiM    |
+| carb_rocks_frac     | 被当做碳基沉积岩石的流域面积的比例 | -    | GLiM    |
+| geol_porosity       | 地下孔隙率                         | -    | GLHYMPS |
+| geol_permeability   | 地下渗透率（log10）                | -    | GLHYMPS |
+
+对于地质属性，使用了两个互补数据集Global Lithological Map（GLiM）和Global Hydrogeology Maps(GLHYMPS)。
+
+GliM数据集从92个地区maps中合成的lithological data。空间分辨率是很好的。有三级，这里选择了第一级。区分了16个类别。再依据这些数据在格点上去计算上表中的数据。
+
+carbonate sedimentary rocks类主要是和水文相关，所以单独记录。
+
+GLHYMPS数据是基于GLiM空间多边形的，因此其分辨率是相当高的。Gleeson et
+al. (2014) 主要依赖GLiM lithologic classes来量化推求the geologic units below soil horizons的两个关键指标: porosity and permeability。CAMELS使用这两个指标的流域平均值。
+
+## CAMELS数据集与GAGES-II数据集
+
+这部分比较两组数据集，看看互相之间有哪些数据是没有的。
+
+首先从USGS来的数据肯定是CAMELS和GAGES-II共有的，这部分就不表述了。关于不同的部分，以CAMELS为主体，看看GAGES-II缺少哪些对应项。
+
+### Climate
+
+| 变量类型         | CAMELS | GAGES-II | 如何补充   |
+| ---------------- | ------ | -------- | ---------- |
+| p_mean           | √      | ×        | 没有日尺度 |
+| pet_mean         | √      | ×        | 没有日尺度 |
+| aridity          | √      | ×        | 没有日尺度 |
+| p_seasonality    | √      | ×        | 没有日尺度 |
+| frac_snow        | √      | ×        | 没有日尺度 |
+| high_prec_freq   | √      | ×        | 没有日尺度 |
+| high_prec_dur    | √      | ×        | 没有日尺度 |
+| high_prec_timing | √      | ×        | 没有日尺度 |
+| low_prec_freq    | √      | ×        | 没有日尺度 |
+| low_prec_dur     | √      | ×        | 没有日尺度 |
+| low_prec_timing  | √      | ×        | 没有日尺度 |
+
+### Land Cover
+
+| 变量类型            | CAMELS | GAGES-II | 如何补充   |
+| ------------------- | ------ | -------- | ---------- |
+| forest_frac         | √      | √        | 数据源一致 |
+| lai_max             | √      | ×        |            |
+| lai_diff            | √      | ×        |            |
+| gvf_max             | √      | ×        |            |
+| gvf_diff            | √      | ×        |            |
+| dom_land_cover      | √      | ×        |            |
+| dom_land_cover_frac | √      | ×        |            |
+| root_depth_XX       | √      | ×        |            |
+
+### Soil
+
+Soil数据都是以STATSGO为基础的，不过具体的属性还需进一步确认。
+
+### Geological
+
+这部分数据源不一样，因此结果可能是不一致的。
