@@ -1,31 +1,31 @@
 # CAMELS
 
-CAMELS数据[官网](https://ral.ucar.edu/solutions/products/camels)推荐了两篇HESS的文献，这两篇文章详细地介绍了CAMELS数据的来龙去脉。这里简要整理一下两篇文献主要内容。
+CAMELS数据[官网](https://ral.ucar.edu/solutions/products/camels)推荐了两篇HESS的文献，这两篇文章详细介绍了CAMELS数据。这里简要整理一下两篇文献主要内容。
 
 ## 背景
 
 制作CAMELS数据最开始的目的在于提供一个模型性能的benchmark。
 
-随着数据的增多和计算能力的增强，基于大样本数据开展水文研究越发常见，这里面也诞生了一批水文气象数据集。比如，MOPEX（Model Parameter Estimation Project）数据集可以提供CONUS上438个流域的观测径流和一些水文气象数据。但是，现在local的model很多（有depth），但是却少有general的model（有breadth的）。
+随着数据的增多和计算能力的增强，基于大样本数据开展水文研究越发常见，这里面也诞生了一批水文气象数据集。比如，MOPEX（Model Parameter Estimation Project）数据集可以提供CONUS上438个流域的观测径流和一些水文气象数据。
 
-为实现general model，整理了水文气象大数据集和建模工具来帮助理解水文模型性能的区域变化。
+目前，local的model很多（有depth），因为针对各个流域可以率定符合自己流域特性的模型结构或参数，但是却少有general的model（有breadth的）。为实现general model，有必要整理水文气象大数据集和建模工具来帮助理解水文模型性能的区域变化。
+
+## N15数据集
+
+CAMELS数据集的前期版本是2015年那篇HESS上的文献介绍的，简称其为N15数据集。
 
 该数据集来自多个美国机构和研究实验室，能提供高质量高保真的数据。包括：
 
 - 671个流域1980-2010年的多空间尺度的日驱动数据
 - 日径流数据
-- 基本元数据（位置、高程、大小、shapefile等）
+- 基础元数据：位置、高程、大小、流域分界的shapefile等
 - benchmark model performance：包括最后率定的模型参数集和各流域模型输出时间序列和相关图像。
 
 关于模型部分，模型采用的是耦合Snow-17和SAC-SMA（Sacramento Soil Moisture Accounting）的水文模型。
 
-## N15数据集
-
 因为这里重点关注的是数据集的性能，因此模型的benchmark待后续有接触的时候再补充，这里只对数据集展开说明。
 
-CAMELS数据集的前期版本是2015年那篇HESS上的文献介绍的，简称其为N15数据集。
-
-对该数据集的介绍主要围绕制作过程展开。
+接下来，介绍该数据集的构建思路及各个类型数据的来源和计算方式。
 
 ### 选择流域
 
