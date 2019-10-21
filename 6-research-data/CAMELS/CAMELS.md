@@ -29,7 +29,7 @@ CAMELS数据集的前期版本是2015年那篇HESS上的文献介绍的，简称
 
 ### 选择流域
 
-USGS-II数据集包括有超过9000个站点的地理空间信息。其中有一部分reference gages（详情可参考GAGES文件夹下的文档）代表了一部分minimal human disturbance的站点。在这一部分内，有一些作为HCDN（Hydro-Climate Data Network）数据集的后续版，称为HCDN-2009。
+USGS-II数据集包括有超过9000个站点的地理空间信息。其中有一部分reference gages（详情可参考GAGES文件夹下的文档）代表了一部分minimal human disturbance的站点。在这一部分内，有一些作为HCDN（Hydro-Climate Data Network）数据集的后续版，称为HCDN-2009（这部分可参考GAGES文件夹下的[HDCN.md](https://github.com/OuyangWenyu/hydrus/blob/master/6-research-data/GAGES/HCDN.md)）。
 
 这部分数据集满足一下标准：
 
@@ -47,51 +47,31 @@ USGS-II数据集包括有超过9000个站点的地理空间信息。其中有一
 
 因为水文模型有不同尺度空间信息作为输入，包括流域级entire watershed（lumped）、elevation bands、水文相应单元hydrologic response units（HRUs）或者grids。所以驱动数据也相应的计算到不同尺度上。
 
-流域空间配置根据MoWS（USGS Modeling of Watershed Systems）group的水文模型的geospatial fabric建立。geospatial fabric介绍见下文；
+流域空间配置根据MoWS（USGS Modeling of Watershed Systems）group的水文模型的geospatial fabric建立。geospatial fabric介绍见[geospatial-fabric.md](https://github.com/OuyangWenyu/hydrus/blob/master/6-research-data/CAMELS/geospatial-fabric.md)；
 
 DEM数据作用于geospatial fabric数据上以创建每个流域的高程轮廓shape文件；
 
-用由USGS的Center for Integrated Data Analytics（CIDA）开发的USGS Geo Data Portal（GDP）来生产基于面积权重的驱动数据；
+用由USGS的Center for Integrated Data Analytics（CIDA）开发的USGS Geo Data Portal（GDP）来生成基于面积权重的forcing数据；
 
-Daymet数据被选为主要的gridded气象数据集来推求径流模拟所需的驱动数据。Daymet数据是日尺度的1km*1km网格的覆盖全美大陆数据集。包括：
+Daymet数据被选为主要的**gridded气象数据集**来推求径流模拟所需的forcing数据。Daymet数据是日尺度的1km*1km网格的覆盖全美大陆数据集。包括七个地表参数：
 
-- 温度temperature
-- 降雨precipitation
-- 短波辐射shortwave downward radiation
-- 日长day length；
-- 湿度humidity
-- snow equivalent
+- minimum temperature
+- maximum temperature
+- precipitation
+- shortwave radiation
+- vapor pressure
+- snow water equivalent
+- day length
+
+数据集涵盖了从1980年1月1日到最近的完整日历年的12月31日。随后的每个年份在日历年度结束时单独处理。Daymet变量是连续地表变量，以单个文件的形式提供，以变量和年份为单位，有1 km x 1 km的空间分辨率和每日时间分辨率。数据采用北美地区的Lambert保角圆锥投影格式，并以符合气候与预报(CF)元数据约定(1.6版)的netCDF文件格式分发。
 
 PET数据Daymet没有，所以使用Priestly-Taylor方法进行估算；
 
-文献[A Long-Term Hydrologically Based Dataset of Land Surface Fluxes and States for the Conterminous United States](https://journals.ametsoc.org/doi/full/10.1175/1520-0442%282002%29015%3C3237%3AALTHBD%3E2.0.CO%3B2)和National Land Data Assimilation System（NLDAS）12km网格数据集用来提供basin lumped尺度的日驱动数据；
+文献[A Long-Term Hydrologically Based Dataset of Land Surface Fluxes and States for the Conterminous United States](https://journals.ametsoc.org/doi/full/10.1175/1520-0442%282002%29015%3C3237%3AALTHBD%3E2.0.CO%3B2)（参考对文献的解析[一文](https://github.com/OuyangWenyu/hydrus/blob/master/6-research-data/CAMELS/maurer2002.md)）和National Land Data Assimilation System（NLDAS）（可参考LDAS文件夹下的[说明](https://github.com/OuyangWenyu/hydrus/blob/f27fee49f25d5a445da915c231fda8bd13ac5b1d/6-research-data/LDAS/LDAS.md)）12km网格数据集用来提供**basin lumped尺度的日forcing数据**；
 
 HCDN-2009 gages的日径流数据从USGS官网获取。
 
-其余关于数据的细节就不再表述了，详情可参考原文。以下是一些补充说明。
-
-### Geospatial Fabric
-
-Geospatial Fabric是一个数据集。第一个发布的版本包括两个单独的文件。一个是针对the GIS feature geometry；另一个是the set of attribute tables from which PRMS（Precipitation Runoff Modeling System） parameter files are generated。
-
-两个产品都在[National Hydrologic Modeling Framework](https://www.sciencebase.gov/catalog/folder/4f4e4773e4b07f02db47e234) [社区网站](www.sciencebase.gov)中发布。
-
-数据集有一个完整的FGDC-compliant元数据。数据集是ESRI文件geodatabases格式，根据Geospatial Fabric Regions（如下图所示,geo fabric regions更像是一个纯粹的地理拼图）进行组织。
-
-![GFR](MapOfRegions.png)
-
-Geospatial Fabric提供了一个consistent, documented, and topologically connected set of spatial features，为水文建模创建了一个abstracted stream/basin network of features.
-
-Geospatial Fabric (GF) data set中包含的GIS向量涵盖全美。Four GIS feature classes are provided for each Region:
-
-- the Region outline ("one")
-- Points of Interest ("POIs")
-- a routing network ("nsegment")
-- Hydrologic Response Units ("nhru")
-
-Geospatial Fabric Regions和用来组织NHDPlus v.1 dataset (US EPA and US Geological Survey, 2005)的区域是一样的。不过Geospatial Fabric Regions仍然是一个全新的数据集，已经被用来广泛支持regional and national scale的水文模型应用了。
-
-总之Geospatial Fabric数据集是国家水文数据National Hydrography Data set流域分析用的。国家水文数据包含了USGS的径流测站点，水文相应单元边界和径流分割，而geospatial fabric则包含了其中的需要的站点及其上游流域面积和流域HRUs。
+其余关于数据的细节就不再表述了，详情可参考原文。
 
 ## CAMELS数据集
 
@@ -272,6 +252,10 @@ al. (2014) 主要依赖GLiM lithologic classes来量化推求the geologic units 
 这部分比较两组数据集，看看互相之间有哪些数据是没有的。
 
 首先从USGS来的数据肯定是CAMELS和GAGES-II共有的，这部分就不表述了。关于不同的部分，以CAMELS为主体，看看GAGES-II缺少哪些对应项。
+
+### Forcing Data
+
+CAMELS的驱动数据grid的主要来自Daymet，流域级的主要是Maurer2002的数据和NLDAS。我们用NLDAS-2数据集。
 
 ### Climate
 
