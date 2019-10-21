@@ -55,158 +55,134 @@ NLDAS全称为North American Land Data Assimilation System。本文从数据集�
 
 北美陆地数据同化系统(NLDAS-1)第一阶段的forcing数据从1996年8月1日至2007年12月31日，空间分辨率1/8度网格间距，时间分辨率是每小时。文件格式为WMO GRIB-1。
 
-The NLDAS-1 forcing datasets (hourly, monthly average, and monthly climatology) 可以在[Get the Data](https://ldas.gsfc.nasa.gov/data)获取。
+NLDAS-1 forcing数据集 (hourly, monthly average, and monthly climatology) 可以在[Get the Data](https://ldas.gsfc.nasa.gov/data)获取。
 
-NLDAS-1 forcing主要数据源是NCEP（National Centers for Environmental Prediction）的Eta model-based Data Assimilation System (EDAS)，一个连续循环的北美4DDA系统. 它利用3小时分析-预报周期，通过同化许多类型的观测，包括对地面压力和screen-level大气温度、湿度、U和V风分量的站内观测，得出大气状态。在40公里的网格上提供后五个变量的EDAS 3小时场，加上地面向下短波和长波辐射以及总对流降水，然后在空间上插值到NLDAS网格，在时间上插值到1小时。最后，为了考虑NLDAS和EDAS的地表高程差异，使用标准的直减率(6.5 K/km)对气温和地表压力进行地形高度调整，然后对比湿度(保持原来的相对湿度)和向下的长波辐射(新气温、比湿度)进行调整。
+NLDAS-1 forcing主要数据源是NCEP（National Centers for Environmental Prediction）的Eta model-based Data Assimilation System (EDAS)，一个连续循环的北美4DDA系统。它利用3小时分析-预报周期，通过同化许多类型的观测，包括对地面压力和screen-level大气温度、湿度、U和V风分量的站内观测，得出大气状态。在40公里的网格上提供：后五个变量，以及地面向下短波和长波辐射，还有总对流降水的EDAS 3小时场，然后在空间上插值到NLDAS网格，在时间上插值到1小时。最后，考虑到NLDAS和EDAS的地表高程差异，使用标准的直减率(6.5 K/km)对气温和地表压力进行地形高度调整，然后对比湿度(保持原来的相对湿度)和向下的长波辐射(新气温、比湿度)进行调整。
 
-基于goes的太阳insolation为NLDAS-1提供了主要的insolation驱动(短波下至地表)。对于低于75度的天顶角，GOES insolation不能恢复，因此在昼/夜界线附近补充EDAS日晒。最后，基于goes的产品套件，NLDAS-1强制文件中包括了光合作用活性辐射(PAR)和表面亮度温度场。
+基于GOES的太阳insolation为NLDAS-1提供了主要的insolation驱动(短波下至地表)。对于低于75度的天顶角，GOES insolation不能恢复，因此在昼/夜界线附近补充EDAS日晒。最后，基于GOES的产品套件，NLDAS-1 forcing文件中包括了光合作用活性辐射Photosynthetically Active Radiation (PAR)和表面亮度温度场。
 
-GOES-based solar insolation (Pinker et al., 2003) provides the primary insolation forcing (shortwave down at the surface) for NLDAS-1. GOES insolation is not retrieved for zenith angles below 75 degrees and so is supplemented with EDAS insolation near the day/night terminator. Last from the GOES-based product suite, Photosynthetically Active Radiation (PAR) and surface brightness temperature fields are included in the NLDAS-1 forcing files.
+美国大陆NLDAS-1 forcing降水被固定在NCEP的1/4度仅限测量的日降水分析中。在NLDAS-1中，这种日分析被插值到1/8度，然后通过应用从基于雷达的每小时4公里(WSR-88D)降水场导出的每小时权值，在时间上分解为每小时的值。后一种基于雷达的场仅用于计算分解权值，不改变日总降水量。最后，用NLDAS-1总降水量乘以EDAS对流降水量与EDAS总降水量的比值来估计对流降水。
 
-NLDAS-1 precipitation forcing over CONUS is anchored to NCEP's 1/4th degree gauge-only daily precipitation analyses of Higgins et al. (2000). In NLDAS-1, this daily analysis is interpolated to 1/8th-degree, then temporally disaggregated to hourly values by applying hourly weights derived from hourly, 4-km, radar-based (WSR-88D) precipitation fields. The latter radar-based fields are used only to derive disaggregation weights and do not change the daily total precipitation. Last, convective precipitation is estimated by multiplying NLDAS-1 total precipitation by the ratio of EDAS convective to EDAS total precipitation. The Convective Available Potential Energy (CAPE) is the final variable in the forcing dataset, also interpolated from EDAS.
+对流有效位能Convective Available Potential Energy(CAPE)是forcing数据集的最后一个变量，也是由EDAS插值得到的。
 
-The dataset applies a user-defined parameter table to indicate the contents and parameter number.
+据集应用用户定义的参数表来指示内容和参数编号。
 
-The following table shows a list of parameters, their Product Definition Section (PDS) IDs, and the units:
-PDS_IDs:Short_Name:Full_Name [Unit]
-63:ACPCPsfc:Convective precipitation hourly total [kg/m^2]
-61:APCPsfc:Precipitation hourly total [kg/m^2]
-118:BRTMPsfc:Surface brightness temperature from GOES-UMD Pinker [K]
-157:CAPEsfc:Convective Available Potential Energy [J/kg]
-205:DLWRFsfc:LW radiation flux downwards (surface) [W/m^2]
-204:DSWRFsfc:SW radiation flux downwards (surface) [W/m^2]
-101:PARsfc:PAR Photosynthetically Active Radiation from GOES-UMD Pinker [W/m^2]
-201:PEDASsfc:Precipitation hourly total from EDAS [kg/m^2]
-202:PRDARsfc:Precipitation hourly total from StageII [kg/m^2]
-1:PRESsfc:Surface pressure [Pa]
-206:RGOESsfc:SW radiation flux downwards (surface) from GOES-UMD Pinker [W/m^2]
-51:SPFH2m:2-m above ground Specific humidity [kg/kg]
-11:TMP2m:2-m above ground Temperature [K]
-33:UGRD10m:10-m above ground Zonal wind speed [m/s]
-34:VGRD10m:10-m above ground Meridional wind speed [m/s]
+下表显示了参数列表、它们的产品定义部分(PDS) id和单位：
+
+- PDS_IDs:Short_Name:Full_Name [Unit]
+- 63:ACPCPsfc:Convective precipitation hourly total [kg/m^2]
+- 61:APCPsfc:Precipitation hourly total [kg/m^2]
+- 118:BRTMPsfc:Surface brightness temperature from GOES-UMD Pinker [K]
+- 157:CAPEsfc:Convective Available Potential Energy [J/kg]
+- 205:DLWRFsfc:LW radiation flux downwards (surface) [W/m^2]
+- 204:DSWRFsfc:SW radiation flux downwards (surface) [W/m^2]
+- 101:PARsfc:PAR Photosynthetically Active Radiation from GOES-UMD Pinker [W/m^2]
+- 201:PEDASsfc:Precipitation hourly total from EDAS [kg/m^2]
+- 202:PRDARsfc:Precipitation hourly total from StageII [kg/m^2]
+- 1:PRESsfc:Surface pressure [Pa]
+- 206:RGOESsfc:SW radiation flux downwards (surface) from GOES-UMD Pinker [W/m^2]
+- 51:SPFH2m:2-m above ground Specific humidity [kg/kg]
+- 11:TMP2m:2-m above ground Temperature [K]
+- 33:UGRD10m:10-m above ground Zonal wind speed [m/s]
+- 34:VGRD10m:10-m above ground Meridional wind speed [m/s]
 
 #### NLDAS-1 model datasets
 
-This page describes the model data for Phase 1 of the North American Land Data Assimilation System (NLDAS-1). The data are in 1/8th-degree grid spacing and range from 01 Oct 1996 to 31 Dec 2007. The temporal resolution is hourly. The file format is WMO GRIB-1.
+模型数据的网格间距为1/8度，时间范围为1996年10月1日至2007年12月31日，时间分辨率是每小时。文件格式为WMO GRIB-1。
 
-The LSMs used in NLDAS-1 were: Mosaic, Noah, SAC, and VIC.  However, the NLDAS-1 model datasets are no longer available to the public.
+NLDAS-1中用到的地表模型LSMs有: Mosaic, Noah, SAC, and VIC.  不过NLDAS-1模型数据集不对公众开放了。
 
 NLDAS validation from NLDAS Phase 1 is available from NOAA/NCEP/EMC.
-
-NLDAS Phase 1 model validation information can be found in Robock et al. (2003).
 
 ### NLDAS-2
 
 #### NLDAS-2 forcing dataset
 
-This dataset contains the forcing data for Phase 2 of the North American Land Data Assimilation System (NLDAS-2). The data are in 1/8th-degree grid spacing and range from 01 Jan 1979 to present. The temporal resolution is hourly. The file format is WMO GRIB-1.
+NADAS-2数据集从1979年1月1日至今，时间分辨率是每小时；数据的网格间距为1/8度。文件格式为WMO GRIB-1。
 
-The NLDAS-2 forcing datasets (hourly, monthly average, and monthly climatology) are available from the "Get the Data" link on the right or on the top menu.
+[GRIB-1](https://www.nco.ncep.noaa.gov/pmb/docs/on388/)是NCEP(National Centers for Environment Prediction)的一种数据格式。句首的链接里有GRIB数据的用户指导。对于给定的物理变量，GRIB数据约定分配如下:GRIB参数ID的惟一数字ID(范围1-255)、惟一的字母数字缩写(最多8个字符)和物理单位。详情可参考官网。NLDAS-2地表forcing文件和土地模型输出文件将使用[GRIB-1参数表130](https://www.nco.ncep.noaa.gov/pmb/docs/on388/table2.html#TABLE130)，该表是面向陆地/水文建模和陆地/水文物理的。
 
-The spatial domain, spatial resolution, computational grid, terrain height, and land mask of NLDAS-2 are identical to that in NLDAS-1, which is described in Section 2.1 of Mitchell et al. (2004).
+NLDAS-2 forcing数据集(每小时、每月平均和每月气候学)可从官网顶部[“获取数据”链接](https://ldas.gsfc.nasa.gov/data)获得。
 
-Appendix A provides web addresses to NCEP online GRIB-1 documentation, source code, and parameter tables. In particular, readers of this document should read the discussion in Appendix A of GRIB-1 Parameter Tables.
+NLDAS-2的空间范围、空间分辨率、计算网格、地形高度和land mask与NLDAS-1相同，可参考文献[Mitchell et al. (2004)](https://doi.org/10.1029/2003JD003823) 2.1节。
 
-The NLDAS-2 land-surface forcing files and land model output files use Parameter Table 130, which is oriented toward land/hydrology modeling.
+NLDAS-2的非降水地表forcing fields来源于NCEP North American Regional Reanalysis([NARR](https://www.emc.ncep.noaa.gov/mmb/rreanl/))的分析fields。NARR包括:1)从1979年1月开始的retrospective数据集，2)NCEP的每日更新。每日更新提供了一个实时的NARR延续，称为区域气候数据同化系统，或R-CDAS。
 
-The non-precipitation land-surface forcing fields for NLDAS-2 are derived from the analysis fields of the NCEP North American Regional Reanalysis (NARR).  NARR consists of: 1) a retrospective dataset starting from Jan 1979, and 2) a daily update execution at NCEP. The daily update provides a real-time NARR continuation known as the Regional Climate Data Assimilation System, or R-CDAS.
+NARR分析领域为32公里空间分辨率和3小时时间频率。利用NARR场产生NLDAS-2 forcing场的方法是在NLDAS 1/8度网格的精细分辨率上进行空间插值，然后在时间上分解成NLDAS-2的小时级频率。另外，对地表压力场、地表向下长波辐射场、近地表气温场和近地表比湿度场进行垂直调整，以解释地形高度NARR场和NLDAS场的垂直差异。这一垂直调整适用传统的气温垂直递减率6.5 K/km。NLDAS-1采用的空间插值、时间分解和垂直调整的细节可参考文献[Cosgrove et al. (2003)](https://doi.org/10.1029/2002JD003118)。
 
-NARR analysis fields are 32-km spatial resolution and 3-hourly temporal frequency. Those NARR fields that are utilized to generate NLDAS-2 forcing fields are spatially interpolated to the finer resolution of the NLDAS 1/8th-degree grid and then temporally disaggregated to the NLDAS-2 hourly frequency. Additionally, the fields of surface pressure, surface downward longwave radiation, near-surface air temperature and near-surface specific humidity are adjusted vertically to account for the vertical difference between the NARR and NLDAS fields of terrain height. This vertical adjustment applies the traditional vertical lapse rate of 6.5 K/km for air temperature. The details of the spatial interpolation, temporal disaggregation, and vertical adjustment are those employed in NLDAS-1, as presented by Cosgrove et al. (2003).
+NLDAS-2的每小时地表forcing场分为两个GRIB文件，“文件A”和“文件B”。这与NLDAS-1不同，NLDAS-1只有一个 小时forcing的文件。
 
-The hourly land-surface forcing fields for NLDAS-2 are grouped into two GRIB files, "File A" and "File B". This is a change from NLDAS-1, which had only one hourly forcing file.
+FORCING文件A:
 
-FORCING FILE A:
+文件A是主要的forcing文件. 它包括11个fields：
 
-File A is the primary (default) forcing file. It will contain the following eleven fields (units are given in parentheses):
+- U wind component (m/s) at 10 meters above the surface
+- V wind component (m/s) at 10 meters above the surface
+- air temperature (K) ** at 2 meters above the surface
+- specific humidity (kg/kg) ** at 2 meters above the surface
+- surface pressure (Pa) **
+- surface downward longwave radiation (W/m^2) **
+- surface downward shortwave radiation (W/m^2) -- bias-corrected (see Appendix B)
+- precipitation hourly total (kg/m^2)
+- fraction of total precipitation that is convective (no units): from NARR
+- CAPE: Convective Available Potential Energy (J/kg): from NARR
+- potential evaporation (kg/m^2): from NARR
 
-U wind component (m/s) at 10 meters above the surface
-V wind component (m/s) at 10 meters above the surface
-air temperature (K) ** at 2 meters above the surface
-specific humidity (kg/kg) ** at 2 meters above the surface
-surface pressure (Pa) **
-surface downward longwave radiation (W/m^2) **
-surface downward shortwave radiation (W/m^2) -- bias-corrected (see Appendix B)
-precipitation hourly total (kg/m^2)
-fraction of total precipitation that is convective (no units): from NARR
-CAPE: Convective Available Potential Energy (J/kg): from NARR
-potential evaporation (kg/m^2): from NARR
-** indicates a field to which the aforementioned vertical adjustment is applied.
+以上内容中的"**"表示应用前述垂直调整的field。
 
-The first eight fields above are the traditional land-surface forcing fields, such as in PILPS (Project for Intercomparison of Land-Surface Process Schemes) and GSWP (Global Soil Wetness Project).
+前八个fields是传统的land-surface forcing fields，比如在PILPS (Project for Intercomparison of Land-Surface Process Schemes)和GSWP (Global Soil Wetness Project).
 
-The surface downward shortwave radiation field in File A is a bias-corrected field wherein a bias-correction algorithm was applied to the NARR surface downward shortwave radiation. This bias correction utilizes five years (1996-2000) of the hourly 1/8th-degree GOES-based surface downward shortwave radiation fields derived by Pinker et al. (2003). The bias-correction algorithm is described in Appendix B.
+A文件中的地表下短波辐射场是一个bias-corrected field ，其中对NARR地表下短波辐射采用了bias-corrected算法。偏置校正可参考文献[Pinker et al. (2003)](https://doi.org/10.1029/2002JD003301)，和[网页附录B](https://ldas.gsfc.nasa.gov/nldas/v2/forcing#AppendixB)。
 
-The precipitation field in File A is not the NARR precipitation forcing, but is rather a product of a temporal disaggregation of a gauge-only CPC analysis of daily precipitation, performed directly on the NLDAS grid and including an orographic adjustment based on the widely-applied PRISM climatology. The methodology and source datasets for producing this precipitation forcing, including details of the temporal disaggregation from the daily analysis to hourly intervals, are given in Appendix C.
+A文件中的降水场不是NARR降水forcing，而是在NLDAS网格上直接进行的仅限计量的CPC日降水分析的时间分解的产物，包括基于广泛应用的PRISM气候学的orographic adjustment。产生这种降水forcing的方法和源数据集，包括从每日分析到每小时间隔的时间分解的细节，在[网页附录C](https://ldas.gsfc.nasa.gov/nldas/v2/forcing#AppendixC)中可查看详情。
 
-The field in File A that gives the fraction of total precipitation that is convective is an estimate derived from the following two NARR precipitation fields (which are provided in File B): NARR total precipitation and NARR convective precipitation (the latter is less than or equal to the NARR total precipitation and can be zero). The convective fraction of total precipitation and/or the CAPE field in File A are used by some land models to estimate the subgrid spatial variability of the total precipitation.
+文件A中的field给出的对流降水总量的比例是根据文件B中两个NARR降水fields估计的: NARR总降水和NARR对流降水(后者小于或等于NARR总降水和可以零)。一些陆地模型使用A文件中总降水的对流部分和/或CAPE场来估计总降水的次网格空间变异性。
 
-The potential evaporation field in File A is that computed in NARR using the modified Penman scheme of Mahrt and Ek (1984). Potential evaporation is needed by some land models (such as the SAC model) that require potential evaporation as an input forcing.
+A文件中的potential evaporation field是在NARR中使用文献[Mahrt和Ek(1984)](https://doi.org/10.1175/1520-0450(1984)023%3C0222:TIOASO%3E2.0.CO;2)改进的Penman scheme计算出来的。一些陆地模型(如SAC模型)需要潜在蒸发，这些模型需要潜在蒸发作为输入forcing。
 
-FORCING FILE B:
+FORCING文件B:
 
-One fundamental physical process represented in land modeling is the surface aerodynamic conductance, which represents the intensity of the near-surface vertical turbulence that transports heat and moisture between the land-surface and the overlying atmosphere.
+地表气动力传导surface aerodynamic conductance是地表模拟中最基本的物理过程之一，它反映了地表与上覆大气之间输送热量和水分的近地表垂直湍流的强度。
 
-There are many approaches to modeling the surface aerodynamic conductance in boundary layer modeling in general, and in land-surface modeling. The results from NLDAS-1 showed a surprisingly large difference among four different land models in the simulated magnitude of the warm-season diurnal cycle of aerodynamic conductance.
+在边界层数值模拟和陆面数值模拟中，对surface aerodynamic conductance进行数值模拟的方法很多。NLDAS-1的结果显示，四种不同的土地模型在模拟的暖季surface aerodynamic conductance日变化幅度上存在惊人的差异。
 
-The 2-meter temperature and specific humidity and 10-meter wind fields applied in continental-scale land-surface modeling studies are typically products of the data assimilation/analysis systems of mainstream NWP centers. The 2-meter and 10-meter levels in such analysis/assimilation systems are rarely explicit levels in the background assimilating NWP model of the given NWP center. Hence NWP centers diagnose these 2-meter and 10-meter fields from the lowest prognostic level of the assimilating model. This diagnostic derivation of 2-meter temperature and humidity fields and 10-meter wind fields is done on the basis of: A) those same fields at the model's lowest prognostic level, which is usually well above the 10-meter level (e.g., 20-200 meters above), and B) the given model's method for modeling the aerodynamic conductance of the "surface layer", also known as the "constant flux layer" -- i.e., applying the given model's particular approach to such physical entities as the surface roughness length for momentum, the surface roughness length for heat, surface layer stability functions (e.g., similarity profile functions) and surface layer parameters (e.g., mixing length).
+大陆尺度地表模拟研究中采用的2米温湿度和10米风场是主流NWP中心数据同化/分析系统的典型产物。这种分析/同化系统中2米和10米的水平在给定的NWP中心的NWP同化模型背景中很少是明确的水平。因此，NWP中心从同化模型的最低预后水平诊断这些2米和10米的区域。2米高的温度和湿度field和10米风field的推导基于以下基础完成:
 
-NLDAS-2 is therefore providing a second forcing file, File B, in which the surface temperature, humidity, and wind fields are represented not at 2 meters and 10 meters above the height of the NLDAS terrain, but rather at the same height above the NLDAS terrain as the height above the NARR terrain of the lowest prognostic level of the NARR assimilation system (namely, the same height above the model terrain as the lowest prognostic level of the mesoscale Eta model, which is the assimilating model in NARR).  We shall denote the latter height as "H", and this height H varies spatially in the horizontal. The motivation for this approach is to allow land models in NLDAS-2 to calculate their aerodynamic conductance from surface forcing fields that are significantly more independent (albeit not fully independent) of the aerodynamic conductance approach applied in the assimilation/analysis system from which the surface forcing fields were derived.
+- A)相同的字段在预后模型的最低水平,通常远高于10米级别(例如,20 - 200米以上)
+- B)给定模型的aerodynamic conductance的方法建模“表层”,也被称为“常通量层”——比如将给定模型的特定方法应用于物理实体，如动量的表面粗糙度长度、热的表面粗糙度长度、表层稳定性函数(如相似剖面函数)和表层参数(如混合长度)。
 
-Specifically then, forcing File B of NLDAS-2 will contain the following ten fields:
+NLDAS-2因此提供第二个forcing文件——文件B,表面温度,湿度,和风fields的表示不是在2米和10米以上的高度NLDAS地形,而是在同一高度以上NLDAS地形。这个高度是上，NARR地形NARR预后水平最低的同化系统(即相同的高度模型地形预后水平最低的中尺度Eta模型,这是NARR的同化模型)。我们将后一个高度表示为“H”，这个高度H在水平方向上随空间变化。这种方法的动机是允许NLDAS-2中的陆地模型从表面forcing场计算它们的aerodynamic conductance，这些地面forcing场与aerodynamic conductance方法应用程序明显更独立(尽管不是完全独立)。
 
-U wind component (m/s) at H meters above the surface
-V wind component (m/s) at H meters above the surface
-air temperature (K) ** at H meters above the surface
-specific humidity (kg/kg) ** at H meters above the surface
-pressure (Pa) ** at H meters above the surface
-height H above the surface (m)
-NARR surface downward shortwave radiation (W/m^2) -- without bias-correction
-NARR precipitation hourly total (kg/m^2)
-NARR convective precipitation hourly total (kg/m^2)
-NARR aerodynamic conductance (m/s)
-Fields 7-10 above are provided for additional reasons, as follows. Fields 7 and 8 are provided to permit land modeling sensitivity tests in which the solar radiation and precipitation fields of File A are replaced by their less accurate counterparts taken directly from NARR. Fields 8 and 9 are the NARR fields used to derive the field of "fraction of convective precipitation" in File A. Field 10 is the aerodynamic conductance obtained from NARR, to allow comparison with the aerodynamic conductance computed independently by each land model in NLDAS-2.
+forcing文件B包含10个fields:
 
-Appendix A: The GRIB-1 Data Format (Documentation, Code, Parameter Tables)
+- U wind component (m/s) at H meters above the surface
+- V wind component (m/s) at H meters above the surface
+- air temperature (K) ** at H meters above the surface
+- specific humidity (kg/kg) ** at H meters above the surface
+- pressure (Pa) ** at H meters above the surface
+- height H above the surface (m)
+- NARR surface downward shortwave radiation (W/m^2) -- without bias-correction
+- NARR precipitation hourly total (kg/m^2)
+- NARR convective precipitation hourly total (kg/m^2)
+- NARR aerodynamic conductance (m/s)
 
-The NCEP online User's Manual for the GRIB-1 data format is available here.
-
-The NCEP web site providing Fortran-90 source code and documentation of code, as well as the NCEP GRIB-1 User's Guide, is here.
-
-For a given physical variable, the GRIB data convention assigns the following:
-
-a unique numeric ID known as the GRIB parameter ID (range 1-255)
-a unique alphanumeric abbreviation (max of 8 characters)
-required physical units.
-The unique GRIB parameter IDs for given physical variables are provided in tables known as GRIB parameter tables. The GRIB-1 Parameter Tables formally recognized at NCEP are available online here.
-
-At of Dec 2007, NCEP formally recognized five GRIB-1 Parameter Tables, namely: Table 2, Table 128, Table 129, Table 130, and Table 140. Each of these tables define up to a maximum of 255 physical variables and their corresponding unique Parameter IDs. Additionally, each table has a Part 1 and a Part 2. Part 1 is identical across all GRIB-1 Tables and provides a WMO mandated list of 128 physical parameters and their WMO-mandated unique Parameter IDs. Part 2 is defined locally by the originating center or agency and the list of physical parameters in Part 2 is often aligned with a given physical specialty. At NCEP for example, Part 2 of Table 128 is oriented somewhat toward ocean modeling and ocean physics, and Part 2 of Table 129 is oriented somewhat toward cloud microphysics.
-
-The NLDAS-2 land-surface forcing files and land model output files will utilize GRIB-1 Parameter Table 130, which is oriented toward land/hydrology modeling and land/hydrology physics.
-
-The parameter IDs for Part 2 of Table 130 are available online here.
-
-The parameter IDs for Part 1 of Table 130 are identical to those of Table 2, online here.
-
-The parameter IDs GRIB tables specific to the NLDAS-2 data as stored on the NASA Hydrology DISC can be found here.
-
-Appendix B: Bias Correction of Downward Shortwave Radiation for NLDAS-2
-
-The NARR downward shortwave radiation field in the NLDAS-2 forcing files ("A" files) is bias-corrected to University of Maryland Surface Radiation Budget (SRB) dataset produced under the auspices of the GEWEX Continental Scale International Project (GCIP) and GEWEX Americas Prediction Project (GAPP) (Pinker et al., 2003). Data from the GOES-8 satellite is processed using an inference model to produce hourly estimates of downward shortwave radiation fluxes. This dataset is produced on the native 1/8th-degree NLDAS grid and no interpolation is necessary. A ratio-based (Berg et al., 2003) bias correction to the reanalysis downward shortwave radiation field was completed.
-
-Appendix C: Generation of hourly precipitation forcing for NLDAS-2
-
-The total precipitation field contained in File A is derived from CPC daily CONUS gauge data (Higgins et al. 2000; Chen et al. 2008 - with the PRISM topographical adjustment, Daly et al. 1994), CPC hourly CONUS/Mexico gauge data (HPD, Higgins et al. 1996), hourly Doppler Stage II radar precipitation data, half-hourly CMORPH data, and 3-hourly NARR precipitation data. Reflecting the strengths of each dataset, hourly NLDAS-2 precipitation is derived by using the Doppler radar, CMORPH products, or HPD data to temporally disaggregate the daily gauge products. This process, described in detail below, capitalizes on the accuracy of the daily gauge product, and on the temporal and spatial resolutions of the Doppler radar and CMORPH products.
-
-Over CONUS, CPC PRISM-adjusted 1/8th-degree daily gauge analyses serve as the backbone of the NLDAS-2 hourly precipitation forcing. In Mexico, where this dataset is unavailable, CPC's 1-degree (1/4th-degree after 2001) North American daily gauge product is used instead. In NLDAS-2, these gauge-only daily precipitation analyses are first processed to fill in any missing values, and then are temporally disaggregated into hourly fields. This is accomplished by deriving hourly disaggregation weights from NWS real-time, 4-km Stage II and 8-km CMORPH hourly precipitation analyses. Stage II data is available from 1996 to the present, while CMORPH data is available from 2002 to the present. The Stage II product consists of WSR-88D Doppler radar-based precipitation estimates that have been bias-corrected using hourly multi-agency gauge data (Fulton et al. 1998), and mosaicked into a national product over the contiguous United States (CONUS) by NCEP/EMC (Baldwin and Mitchell, 1997). This CONUS mosaic of the Stage II product is interpolated to 1/8th-degree and any gaps in radar coverage (which total on average 13% of the area of the CONUS and are due to lack of radar coverage or equipment maintenance) are filled in with nearest neighbor Stage II data from within a 2-degree radius. If no Stage II data are available, then CMORPH data are used instead. CMORPH data is also used over the Mexican portion of the NLDAS domain which is outside of the Stage II's region of coverage. When CMORPH data is unavailable, such as before 2002, the 2 X 2.5 degree CPC Hourly Precipitation Dataset (HPD) is used. If HPD is also unavailable, NARR data is used instead. Details of the precipitation gauges used in the CPC analyses can be found here, which also links to a map of the gauges that ever provided data for these analyses, with about half of these gauges still active in the real-time data production.
-
-The above hourly fields are then divided by fields of their respective daily totals to create hourly temporal disaggregation weights representing the proportion of the 24-hour total precipitation which fell in each hour. If the daily total is zero in an area of non-zero CPC precipitation, hourly weights are set to 1/24 to spread the precipitation evenly over the entire day. These hourly weights are then multiplied by the daily gauge-only CPC precipitation analysis to arrive at temporally disaggregated hourly NLDAS-2 fields. Since the Stage II, CMORPH, HPD, and NARR data are only used to derive the hourly disaggregation weights, a daily summation of these hourly NLDAS-2 precipitation fields will exactly reproduce the original CPC daily precipitation analyses. Since daily gauge and hourly precipitation data is sparse over Canada, NARR precipitation is used over all Canadian regions within the NLDAS domain. Rather than have an abrupt cutoff at the United States border, a 1-degree wide blending area is used. In this region, precipitation forcing consists of a weighted combination of the precipitation datasets discussed above.
-
-Starting on 01 January 2012, NLDAS-2 transitioned from the unified CPC precipitation product to an operational CPC precipitation product, as the previous product was no longer being generated. The primary difference between the products is that the interpolation algorithm has changed (as the input precipitation gauge information is the same). For the unified CPC product from 1979 to 2011, the Inverse Distance method was used, with missing values replaced using a precipitation climatology. For the operational CPC product from 2012 to present, the Optimal Interpolation method (OI) is used, with missing values replaced using the value from the nearest station. This difference in the interpolation method has shown some differences in the behavior of precipitation, especially right on the U.S.-side of the border with Mexico, in western mountainous regions, and along coastlines.
-
-The different precipitation products (by year and location) used for generation of hourly NLDAS-2 precipitation is summarized in the table below. Unfortunately, due to data availability and the quasi-operational nature of NLDAS, complete continuity of the data over all times/locations is not possible. Additionally, the number and location of the precipitation gauge observations stations has varied over the NLDAS-2 record. For details, please see Figure 2 in Mo et al. 2012 and this presentation by Chen and Xie. For known issues with the NLDAS-2 precipitation, please see this FAQ and answer.
+提供Fields 7-10还有其他如下原因：提供7和8是为了允许进行土地模拟敏感性试验，在这些试验中，文件A的太阳辐射场和降水场被直接从NARR获得的精度较低的对应场所代替。8和9是NARR field，用于推导a文件中“对流降水的分式”场。场10是由NARR得到的气动导度，可以与NLDAS-2中各陆地模型独立计算的气动导度进行比较
 
 #### NLDAS-2 model datasets
 
-This page describes the model data for Phase 2 of the North American Land Data Assimilation System (NLDAS-2). The data are in 1/8th-degree grid spacing and range from 02 Jan 1979 to present. The temporal resolution is hourly. The file format is WMO GRIB-1.
+本页描述北美陆地数据同化系统(NLDAS-2)第2阶段的模型数据。从1979年1月2日至今，数据的网格间距和范围为1/8度。时间分辨率是每小时。文件格式为WMO GRIB-1。
 
-There are currently four land-surface models with data available over the NLDAS-2 period. They are:
+在NLDAS-2期间，目前有四种陆地表面模型可用数据。它们是:
+
+- Mosaic
+- Noah-2.8
+- SAC
+- VIC-4.0.4
+
+NLDAS-2 Validation Information：
+
+- Soil moisture evaluation
+- Soil temperature evaluation
+- Evapotranspiration evaluation
+- Runoff/streamflow evaluation
+- Snow evaluation
