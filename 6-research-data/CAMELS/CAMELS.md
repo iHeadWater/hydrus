@@ -27,7 +27,7 @@ CAMELS数据集的前期版本是2015年那篇HESS上的文献介绍的，简称
 
 接下来，介绍该数据集的构建思路及各个类型数据的来源和计算方式。
 
-### 选择流域
+### 流域基础数据
 
 USGS-II数据集包括有超过9000个站点的地理空间信息。其中有一部分reference gages（详情可参考GAGES文件夹下的文档）代表了一部分minimal human disturbance的站点。在这一部分内，有一些作为HCDN（Hydro-Climate Data Network）数据集的后续版，称为HCDN-2009（这部分可参考GAGES文件夹下的[HDCN.md](https://github.com/OuyangWenyu/hydrus/blob/master/6-research-data/GAGES/HCDN.md)）。
 
@@ -43,7 +43,13 @@ USGS-II数据集包括有超过9000个站点的地理空间信息。其中有一
 
 这671个流域覆盖全美，有很广泛的水文气候条件。东南温暖湿润的流域、西南炎热干旱的流域、西北凉爽湿润的流域和东北干燥寒冷的流域都包含在内。
 
-### 驱动数据与径流数据
+在从NCAR官网下载的CAMELS数据文件夹中，流域基本元数据在basin_timeseries_v1p2_metForcing_obsFlow\basin_dataset_public_v1p2\basin_metadata文件夹中。文件夹内容如下图所示。
+![basin_meta_data](basin_meta_data.png)
+
+其中，站点信息主要在gauge_information中，详细数据如下图所示。
+![gauge_info](gauge_info.png)
+
+### 驱动数据
 
 因为水文模型有不同尺度空间信息作为输入，包括流域级entire watershed（lumped）、elevation bands、水文相应单元hydrologic response units（HRUs）或者grids。所以驱动数据也相应的计算到不同尺度上。
 
@@ -69,9 +75,26 @@ PET数据Daymet没有，所以使用Priestly-Taylor方法进行估算；
 
 文献[A Long-Term Hydrologically Based Dataset of Land Surface Fluxes and States for the Conterminous United States](https://journals.ametsoc.org/doi/full/10.1175/1520-0442%282002%29015%3C3237%3AALTHBD%3E2.0.CO%3B2)（参考对文献的解析[一文](https://github.com/OuyangWenyu/hydrus/blob/master/6-research-data/CAMELS/maurer2002.md)）和National Land Data Assimilation System（NLDAS）（可参考LDAS文件夹下的[说明](https://github.com/OuyangWenyu/hydrus/blob/f27fee49f25d5a445da915c231fda8bd13ac5b1d/6-research-data/LDAS/LDAS.md)）12km网格数据集用来提供**basin lumped尺度的日forcing数据**；
 
-HCDN-2009 gages的日径流数据从USGS官网获取。
+其余关于数据的细节就不再表述了，详情可参考原文，这里给出各个数据集的在计算机中的实例情况。
 
-其余关于数据的细节就不再表述了，详情可参考原文。
+流域级别的forcing数据在basin_timeseries_v1p2_metForcing_obsFlow\basin_dataset_public_v1p2\basin_mean_forcing文件夹下。
+如前所述，有三种驱动数据集，daymet虽然是grid的，但是也有流域尺度上的驱动数据，另外两种就是maurer和NLDAS的驱动数据集。这里选择NLDAS数据集为例展开。
+
+18个分区是geospatial-fabric的分区结果。进入每个分区，文件夹如下图所示。
+![lump_nldas_forcing](lump_nldas_forcing.png)
+
+每个文件内的格式如图所示。即每日12时的7项forcing数据值。
+![lump_nldas_forcing_data](lump_nldas_forcing_data.png)
+
+### 径流数据
+
+HCDN-2009 gages的日径流数据是从USGS官网获取的，然后按照18个分区存储在不同文件夹下。文件夹是basin_timeseries_v1p2_metForcing_obsFlow\basin_dataset_public_v1p2\usgs_streamflow。
+
+每个区域的文件夹下的内容如图所示。
+![usgs_streamflow](usgs_streamflow.png)
+
+每个文件里的径流数据格式如图所示，为每日径流数据，最后一列有A、A:e、M三种，根据观察，有M的行对应的径流都是-999.00，所以应该表示空缺；A表示实际观测值；A:e应为估计值。
+![usgs_streamflow_data](usgs_streamflow_data.png)
 
 ## CAMELS数据集
 
