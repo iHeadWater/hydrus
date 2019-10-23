@@ -94,6 +94,7 @@ HCDN-2009 gages的日径流数据是从USGS官网获取的，然后按照18个�
 ![usgs_streamflow](usgs_streamflow.png)
 
 每个文件里的径流数据格式如图所示，为每日径流数据，最后一列有A、A:e、M三种，根据观察，有M的行对应的径流都是-999.00，所以应该表示空缺；A表示实际观测值；A:e应为估计值。
+
 ![usgs_streamflow_data](usgs_streamflow_data.png)
 
 ## CAMELS数据集
@@ -134,6 +135,11 @@ CAMELS数据集全称为Catchment Attributes and Meteorology for Large-sample St
 - 为了保证数据空间一致性，减少仅使用数据集生成模拟区域变化的风险。
 
 #### 数据项
+
+CAMELS的attributes数据在camels_attributes_v2.0文件夹中。下载的压缩包解压后如下图所示，camels_attributes_v2.0\camels_attributes_v2.0。
+![camels_attributes_v2.0](attributes.png)
+
+6个txt文件，camels_topo.txt/camels_clim.txt/camels_hydro.txt/camels_vege.txt/camels_soil.txt/camels_geol.txt分别对应6个主要属性。
 
 ##### Location and topography
 
