@@ -7,19 +7,15 @@
 主要涉及的内容有：
 
 - 1.python基础
-  - windows10下TensorFlow2.0及Pytorch1.2配置
-  - Ubuntu18.04下Pytorch1.2配置
-  - 使用jupyter（vscode）
-  - python基本库简单示例
-  - python测试
+  - 基础环境配置
+  - python基础
 - 2.地图与可视化
-  - matplotlib库使用方式
-  - 地图投影proj4
+  - 数据可视化之matplotlib等库
+  - open-source-gis地图展示
 - 3.科学计算库
   - numpy
   - pandas
   - sklearn
-  - netcdf python库
 - 4.常用算法库及示例
   - moea框架-platypus
   - 深度学习框架pytorch
@@ -30,7 +26,7 @@
   - CNN模型做时间序列模拟
   - CNN模型数字图像识别
 - 6.科研数据获取
-  - USGS数据
+  - GAGES数据
   - CAMELS数据
 
 ## 参与贡献
