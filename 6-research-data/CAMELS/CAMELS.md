@@ -141,6 +141,8 @@ CAMELS的attributes数据在camels_attributes_v2.0文件夹中。下载的压缩
 
 6个txt文件，camels_topo.txt/camels_clim.txt/camels_hydro.txt/camels_vege.txt/camels_soil.txt/camels_geol.txt分别对应6个主要属性。
 
+一个xlsx文件是对各个txt文件的详细说明，这里把其内容copy并翻译如下列各项所示。
+
 ##### Location and topography
 
 | 属性               | 描述                            | 单位              | 数据源            |
