@@ -1,5 +1,3 @@
-/pytorch-examples/large_files/
-
 ### R template
 # History files
 .Rhistory
@@ -605,4 +603,4 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 .idea
-/6-research-data/GAGES/Rplots.pdf
+4-pytorch-examples/data/

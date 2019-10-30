@@ -88,12 +88,12 @@ PET数据Daymet没有，所以使用Priestly-Taylor方法进行估算；
 
 ### 径流数据
 
-HCDN-2009 gages的日径流数据是从USGS官网获取的，然后按照18个分区存储在不同文件夹下。文件夹是basin_timeseries_v1p2_metForcing_obsFlow\basin_dataset_public_v1p2\usgs_streamflow。
+HCDN-2009 gages的日径流数据是从USGS官网获取的，文件根目录是basin_timeseries_v1p2_metForcing_obsFlow\basin_dataset_public_v1p2\usgs_streamflow，其下共有18个子文件夹，分别对应USGS HUC两位编号1-18，每个文件夹下都有名为“gggggggg_streamflow_qc.txt”的文件，其中gggggggg是USGS径流gauge的8位ID。
 
 每个区域的文件夹下的内容如图所示。
 ![usgs_streamflow](usgs_streamflow.png)
 
-每个文件里的径流数据格式如图所示，为每日径流数据，最后一列有A、A:e、M三种，根据观察，有M的行对应的径流都是-999.00，所以应该表示空缺；A表示实际观测值；A:e应为估计值。
+每个文件里的径流数据格式如图所示，每个文件的列名为：GAGEID Year Month Day Streamflow(**cubic feet per second**) QC_flag，共6项。径流值missing的被赋值 -999.0。文件都是日平均径流，QC_flag最后一列有A、A:e、M三类值，A表示实际观测值；A:e表示径流估计值；M表示missing，对应的径流是-999.00。
 
 ![usgs_streamflow_data](usgs_streamflow_data.png)
 
