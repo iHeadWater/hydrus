@@ -98,7 +98,7 @@ NLDAS validation from NLDAS Phase 1 is available from NOAA/NCEP/EMC.
 
 #### NLDAS-2 forcing dataset
 
-NADAS-2数据集从1979年1月1日至今，时间分辨率是每小时；数据的网格间距为1/8度。文件格式为WMO GRIB-1。
+NADAS-2数据集从1979年1月1日至今，时间分辨率是**每小时**；数据的网格间距为**1/8度**。文件格式为WMO **GRIB-1**。
 
 [GRIB-1](https://www.nco.ncep.noaa.gov/pmb/docs/on388/)是NCEP(National Centers for Environment Prediction)的一种数据格式。句首的链接里有GRIB数据的用户指导。对于给定的物理变量，GRIB数据约定分配如下:GRIB参数ID的惟一数字ID(范围1-255)、惟一的字母数字缩写(最多8个字符)和物理单位。详情可参考官网。NLDAS-2地表forcing文件和土地模型输出文件将使用[GRIB-1参数表130](https://www.nco.ncep.noaa.gov/pmb/docs/on388/table2.html#TABLE130)，该表是面向陆地/水文建模和陆地/水文物理的。
 
