@@ -9,9 +9,8 @@
 - 1.python基础
   - 基础环境配置
   - python基础
-- 2.地图与可视化
-  - 数据可视化之matplotlib等库
-  - open-source-gis地图展示
+- 2.可视化
+  - matplotlib
 - 3.科学计算库
   - numpy
   - pandas
@@ -26,7 +25,6 @@
   - CNN模型做时间序列模拟
   - CNN模型数字图像识别
 - 6.科研数据获取
-  - GEE数据
   - 数据爬取
 
 ## 参与贡献
