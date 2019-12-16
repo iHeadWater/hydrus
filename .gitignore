@@ -604,3 +604,4 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 .idea
 /4-pytorch-examples/data/mnist/train.csv
+/6-web-crawler/dataset/
