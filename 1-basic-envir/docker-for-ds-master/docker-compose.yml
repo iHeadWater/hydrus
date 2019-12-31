@@ -1,0 +1,31 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    volumes:
+      - "./app/code/:/code/"
+    ports:
+      - 8888:8888
+    depends_on:
+      - db
+    tty: true
+    environment:
+      DB_ENGINE: sql_server.pyodbc
+      DB_NAME: master
+      DB_SERVER: host.docker.internal
+      DB_PORT: 1433
+      DB_DRIVER: "ODBC Driver 17 for SQL Server"
+      DB_USER: sa
+      DB_PWD: blogPWD123!
+      
+    command: /bin/bash
+
+  db:
+    image: microsoft/mssql-server-linux:2017-CU9
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: blogPWD123!
+      ACCEPT_EULA: Y
