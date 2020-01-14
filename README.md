@@ -18,14 +18,13 @@
     - matplotlib
     - seaborn
 - 4.常用算法库及示例
-    - moea框架-platypus
+    - 水文可用计算包
+    - 优化计算包
     - 深度学习框架pytorch
     - 深度学习框架TensorFlow-Keras
-    - 水文基础计算库
-    - 贝叶斯优化
 - 5.算法应用示例
-    - CNN模型做时间序列模拟
-    - CNN模型数字图像识别
+    - CNN的hello world
+    - CNN时间序列模拟
 - 6.科研数据获取
     - 数据爬取
 
