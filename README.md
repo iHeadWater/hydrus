@@ -6,10 +6,10 @@
 
 主要涉及的内容有：
 
-- 1.python基础
+- 1.Python基础
     - 基础环境配置
     - python基础
-- 2.科学计算库
+- 2.常用科学计算库
     - numpy
     - pandas
     - sklearn
@@ -17,18 +17,18 @@
     - bokeh
     - matplotlib
     - seaborn
-- 4.常用算法库及示例
+- 4.常用算法库示例
     - 水文可用计算包
     - 优化计算包
-    - 深度学习框架pytorch
-    - 深度学习框架TensorFlow-Keras
-- 5.算法应用示例
-    - CNN的hello world
-    - CNN时间序列模拟
+- 5.神经网络算法示例
+    - 常用深度学习框架介绍
+    - CNN 示例
+    - RNN 示例
+    - 其他补充
 - 6.科研数据获取
     - 数据爬取
 
-更多内容可以关注：[awesome-python](https://github.com/vinta/awesome-python)
+更多内容可以关注：[awesome-python](https://github.com/vinta/awesome-python)。
 
 ## 参与贡献
 
