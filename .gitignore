@@ -605,3 +605,5 @@ fabric.properties
 .idea
 /4-pytorch-examples/data/mnist/train.csv
 /6-web-crawler/dataset/
+/5-basic-pytorch-tensorflow/data
+/5-rnn-example/data
