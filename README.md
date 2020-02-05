@@ -30,6 +30,8 @@
 
 更多内容可以关注：[awesome-python](https://github.com/vinta/awesome-python)。
 
+关于GIS方面的简单学习使用可以关注：[hydroGIS](https://github.com/OuyangWenyu/hydroGIS)。
+
 ## 参与贡献
 
 1. Fork 本项目
