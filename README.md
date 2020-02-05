@@ -36,3 +36,6 @@
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
+
+我刚刚关闭了自己的pull request 我现在再来试试
+拒绝就行 感谢
