@@ -1,6 +1,6 @@
 # hydrus
 
-水资源water resource方面利用python做模型model、算法algorithm和开发software development等工作所需的基础**技能**树学习。
+水资源water resource方面利用python做模型model、算法algorithm和开发software development等工作所需的基础**技能**树学习。了解本repo请从这里开始：1-basic-envir/1-get-started.ipynb 开始。
 
 ## 主要内容
 
