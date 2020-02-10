@@ -1,6 +1,6 @@
 # hydrus
 
-水资源water resource方面利用python做模型model、算法algorithm和开发software development等工作所需的基础**技能**树学习。了解本repo请从这里开始：1-basic-envir/1-get-started.ipynb 开始。
+水资源water resource方面利用python做模型model、算法algorithm和开发software development等工作所需的基础**技能**树学习。了解本repo请从这里开始：[1-basic-envir/1-get-started.ipynb](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/1-get-started.ipynb) 开始。本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，所以更多的作用是为像我一样非计算机科班，不需要从头到尾完全系统学习的同学提供参考，串联一些基本概念。本repo仍有很多不通畅之处，遇错见谅。
 
 ## 主要内容
 
@@ -18,13 +18,35 @@
     - GIS数据可视化
     - 交互式可视化
 - 4.常用算法库示例
-    - 水文计算实例
     - 优化计算实例
 - 5.神经网络算法示例
     - 常用深度学习框架
     - 一点实例
 - 6.科研数据获取
     - 数据爬取
+
+目前完整的conda安装列表如下所示，详情也可参考目前的environment.yml文件，建议根据实际需要逐步安装。
+
+```Shell
+conda create --name hydrus python=3.8
+conda activate hydrus
+conda config --add channels conda-forge
+# 修改.condarc：固定conda-forge 和 defaults 的顺序后，执行：
+conda config --set channel_priority strict
+conda install -c conda-forge jupyterlab
+conda install -c conda-forge rpy2
+conda install -c conda-forge numpy
+conda install -c conda-forge pandas
+conda install -c conda-forge scikit-learn
+conda install -c conda-forge matplotlib
+conda install -c conda-forge seaborn
+conda install -c conda-forge cartopy
+conda install -c conda-forge bokeh
+conda install -c conda-forge bayesian-optimization
+conda install -c conda-forge platypus-opt
+conda install pytorch torchvision cpuonly -c pytorch
+conda env export > environment.yml
+```
 
 本repo中可视化部分有涉及关于GIS方面内容，若对水文中gis的简单学习使用有兴趣，可以关注：[hydroGIS](https://github.com/OuyangWenyu/hydroGIS)。
 
