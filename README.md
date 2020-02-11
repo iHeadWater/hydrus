@@ -25,10 +25,10 @@
 - 6.科研数据获取
     - 数据爬取
 
-目前完整的conda安装列表如下所示，详情也可参考目前的environment.yml文件，建议根据实际需要逐步安装。
+目前完整的conda安装列表如下所示，你可以直接用现在的environment.yml文件安装，不过要先修改下prefix，如果这个环境配置不懂可以先不管，直接从1-basic-envir/1-get-started.ipynb开始即可。因为最开始本项目是在python3.7下开始的，有些库在3.8及之后的版本安装也不是太顺利，所以就选择python3.7了。
 
 ```Shell
-conda create --name hydrus python=3.8
+conda create --name hydrus python=3.7
 conda activate hydrus
 conda config --add channels conda-forge
 # 修改.condarc：固定conda-forge 和 defaults 的顺序后，执行：
@@ -41,6 +41,8 @@ conda install -c conda-forge scikit-learn
 conda install -c conda-forge matplotlib
 conda install -c conda-forge seaborn
 conda install -c conda-forge cartopy
+conda install -c conda-forge geopandas
+conda install -c conda-forge geoplot
 conda install -c conda-forge bokeh
 conda install -c conda-forge bayesian-optimization
 conda install -c conda-forge platypus-opt
