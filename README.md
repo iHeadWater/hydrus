@@ -1,10 +1,12 @@
 # hydrus
 
-水资源water resource方面利用python做模型model、算法algorithm和开发software development等工作所需的基础**技能**树学习。了解本repo请从这里开始：[1-basic-envir/1-get-started.ipynb](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/1-get-started.ipynb) 开始。本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，所以更多的作用是为像我一样非计算机科班，不需要从头到尾完全系统学习的同学提供参考，串联一些基本概念。本repo仍有很多不通畅之处，遇错见谅。
+水资源water resource方面利用python做模型model、算法algorithm和开发software development等工作所需的基础**技能**树学习。
 
 ## 主要内容
 
-主要涉及的内容有：
+本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，所以更多的作用是为像我一样非计算机科班，不需要从头到尾完全系统学习的同学提供参考，串联一些基本概念。本repo仍有很多不通畅之处，遇错见谅。了解本repo可以从这里开始：[1-basic-envir/1-get-started.ipynb](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/1-get-started.ipynb) 开始。
+
+主要涉及的内容（持续更新中）有：
 
 - 1.Python基础
     - 基础环境配置
@@ -34,9 +36,11 @@ conda config --add channels conda-forge
 # 修改.condarc：固定conda-forge 和 defaults 的顺序后，执行：
 conda config --set channel_priority strict
 conda install -c conda-forge jupyterlab
+conda install -c conda-forge flask
 conda install -c conda-forge rpy2
 conda install -c conda-forge numpy
 conda install -c conda-forge pandas
+conda install -c conda-forge xlrd
 conda install -c conda-forge scikit-learn
 conda install -c conda-forge matplotlib
 conda install -c conda-forge seaborn
@@ -54,11 +58,17 @@ conda env export > environment.yml
 
 本repo记录的都是纯技术方面内容，其中涉及到的基本常识可以关注[elks](https://github.com/OuyangWenyu/elks)。
 
+**强烈推荐**一些学科科研相关的python学习资料：
+
+- [Earth Lab - Earth Data Science](https://www.earthdatascience.org/)
+- [Software Carpentry – Teaching Basic Lab Skills for Scientific Computing](https://software-carpentry.org/lessons/index.html)
+- [NumFOCUS](https://numfocus.org/)
+
 更多内容可以关注：[awesome-python](https://github.com/vinta/awesome-python)。
 
 ## 参与贡献
 
 1. Fork 本项目
-2. 新建 Feat_xxx 分支
+2. 新建 xxx 分支
 3. 提交代码
 4. 新建 Pull Request

@@ -608,4 +608,4 @@ fabric.properties
 /5-basic-pytorch-tensorflow/data
 /5-rnn-example/data
 /5-basic-pytorch-tensorflow/runs
-
+/5-nn-example/cnns/data
