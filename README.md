@@ -4,7 +4,7 @@
 
 ## 主要内容
 
-本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，所以更多的作用是为像我一样非计算机科班，不需要从头到尾完全系统学习的同学提供参考，串联一些基本概念。本repo仍有很多不通畅之处，遇错见谅。了解本repo可以从这里开始：[1-basic-envir/1-get-started.ipynb](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/1-get-started.ipynb) 开始。
+本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，所以更多的作用是为像我一样非计算机科班，不需要从头到尾完全系统学习的同学提供参考，串联一些基本概念。本repo仍有很多不通畅之处，遇错见谅。继续阅读可以从这里开始：[1-basic-envir/1-get-started.ipynb](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/1-get-started.ipynb)。
 
 主要涉及的内容（持续更新中）有：
 
@@ -27,7 +27,7 @@
 - 6.科研数据获取
     - 数据爬取
 
-目前完整的conda安装列表如下所示，你可以直接用现在的environment.yml文件安装，不过要先修改下prefix，如果这个环境配置不懂可以先不管，直接从1-basic-envir/1-get-started.ipynb开始即可。因为最开始本项目是在python3.7下开始的，有些库在3.8及之后的版本安装也不是太顺利，所以就选择python3.7了。
+目前完整的conda安装列表如下所示，你可以直接用现在的environment.yml文件安装，如果这个环境配置不成功，可以直接运行下面的安装语句。
 
 ```Shell
 conda create --name hydrus python=3.7
@@ -37,20 +37,25 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 conda install -c conda-forge jupyterlab
 conda install -c conda-forge flask
-conda install -c conda-forge rpy2
 conda install -c conda-forge numpy
 conda install -c conda-forge pandas
 conda install -c conda-forge xlrd
+conda install -c conda-forge xarray
+conda install -c conda-forge dask
 conda install -c conda-forge scikit-learn
 conda install -c conda-forge matplotlib
 conda install -c conda-forge seaborn
 conda install -c conda-forge cartopy
 conda install -c conda-forge geopandas
 conda install -c conda-forge geoplot
-conda install -c conda-forge bokeh
+conda install -c conda-forge plotly=4.5.2
+conda install -c plotly plotly-geo=1.0.0
 conda install -c conda-forge bayesian-optimization
 conda install -c conda-forge platypus-opt
+# 如果直接使用cpu版，本repo中暂时就只使用cpu了
 conda install pytorch torchvision cpuonly -c pytorch
+# 如果是GPU，首先要根据 5-basic-pytorch-tensorflow/1-get-started.ipynb 中内容配置好机器
+conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
 conda env export > environment.yml
 ```
 
@@ -58,7 +63,7 @@ conda env export > environment.yml
 
 本repo记录的都是纯技术方面内容，其中涉及到的基本常识可以关注[elks](https://github.com/OuyangWenyu/elks)。
 
-**强烈推荐**一些学科科研相关的python学习资料：
+**推荐**一些学科科研相关的python学习资料：
 
 - [Earth Lab - Earth Data Science](https://www.earthdatascience.org/)
 - [Software Carpentry – Teaching Basic Lab Skills for Scientific Computing](https://software-carpentry.org/lessons/index.html)
