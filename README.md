@@ -56,6 +56,7 @@ conda install -c conda-forge platypus-opt
 conda install pytorch torchvision cpuonly -c pytorch
 # 如果是GPU，首先要根据 5-basic-pytorch-tensorflow/1-get-started.ipynb 中内容配置好机器
 conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+conda install skorch
 conda env export > environment.yml
 ```
 
