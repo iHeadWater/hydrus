@@ -1,6 +1,6 @@
 # hydrus
 
-水资源water resource方面利用python做模型model、算法algorithm和开发software development等工作所需的基础**技能**树学习。
+水资源water resource方面利用python做模型model、算法algorithm等科学计算工作所需的基础**技能**树学习。
 
 ## 主要内容
 
@@ -8,26 +8,28 @@
 
 主要涉及的内容（持续更新中）有：
 
-- 1.Python基础
+1. Python基础
     - 基础环境配置
     - python基础
-- 2.常用科学计算库
+2. 常用科学计算库
     - numpy
     - pandas
     - sklearn
-- 3.可视化
+3. 可视化
     - 静态可视化
     - GIS数据可视化
     - 交互式可视化
-- 4.常用算法库示例
+4. 常用算法库示例
     - 优化计算实例
-- 5.神经网络算法示例
+5. 神经网络算法示例
     - 常用深度学习框架
     - 一点实例
-- 6.科研数据获取
+6. 科研数据获取
     - 数据爬取
+7. 并行计算
+    - python并行基础
 
-目前完整的conda安装列表如下所示，你可以直接用现在的environment.yml文件安装，如果这个环境配置不成功，可以直接运行下面的安装语句。
+本项目目前主要在windows系统下运行。目前完整的conda安装列表如下所示，你可以直接用现在的environment.yml文件安装，如果这个环境配置不成功，可以直接运行下面的安装语句。
 
 ```Shell
 conda create --name hydrus python=3.7
@@ -39,9 +41,9 @@ conda install -c conda-forge jupyterlab
 conda install -c conda-forge flask
 conda install -c conda-forge numpy
 conda install -c conda-forge pandas
+conda install -c conda-forge feather-format
 conda install -c conda-forge xlrd
 conda install -c conda-forge xarray
-conda install -c conda-forge dask
 conda install -c conda-forge scikit-learn
 conda install -c conda-forge matplotlib
 conda install -c conda-forge seaborn
@@ -50,6 +52,7 @@ conda install -c conda-forge geopandas
 conda install -c conda-forge geoplot
 conda install -c conda-forge plotly=4.5.2
 conda install -c plotly plotly-geo=1.0.0
+conda install -c conda-forge bokeh
 conda install -c conda-forge bayesian-optimization
 conda install -c conda-forge platypus-opt
 # 如果直接使用cpu版，本repo中暂时就只使用cpu了
@@ -57,6 +60,24 @@ conda install pytorch torchvision cpuonly -c pytorch
 # 如果是GPU，首先要根据 5-basic-pytorch-tensorflow/1-get-started.ipynb 中内容配置好机器
 conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
 conda install skorch
+conda install -c conda-forge aiohttp
+conda install -c conda-forge cloudpickle
+conda install -c conda-forge distributed
+conda install -c conda-forge joblib
+conda install -c conda-forge pandas-datareader
+conda install -c conda-forge pytables
+conda install -c conda-forge snakeviz
+conda install -c conda-forge ujson
+conda install -c conda-forge gcsfs
+conda install -c conda-forge ipywidgets
+conda install -c conda-forge numba
+conda install -c conda-forge h5py
+conda install -c conda-forge scikit-image
+conda install -c conda-forge dask
+conda install -c conda-forge python-graphviz
+conda install -c conda-forge s3fs
+conda install -c conda-forge loky
+conda install -c conda-forge findspark
 conda env export > environment.yml
 ```
 
