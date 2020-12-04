@@ -1,10 +1,10 @@
 # hydrus
 
-水资源water resource方面利用python做模型model、算法algorithm等科学计算工作所需的基础**技能**树学习。
+水文水资源（Hydrology and Water Resources）方面利用python做模型model、算法algorithm等科学计算工作所需的基础技能树学习。
 
 ## 主要内容
 
-本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，所以更多的作用是为像我一样非计算机科班，不需要从头到尾完全系统学习的同学提供参考，串联一些基本概念。本repo仍有很多不通畅之处，遇错见谅。继续阅读可以从这里开始：[1-basic-envir/1-get-started.ipynb](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/1-get-started.ipynb)。
+本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，作用是为像我一样非计算机相关专业，不需要从头到尾完全系统学习的同学提供参考，串联某些基本概念。本repo仍有很多不通畅之处，遇错见谅。继续阅读可以从这里开始：[1-basic-envir/1-get-started.ipynb](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/1-get-started.ipynb)。
 
 主要涉及的内容（持续更新中）有：
 
@@ -29,56 +29,17 @@
 7. 并行计算
     - python并行基础
 
-本项目目前主要在windows系统下运行。目前完整的conda安装列表如下所示，你可以直接用现在的environment.yml文件安装，如果这个环境配置不成功，可以直接运行下面的安装语句。
+本项目目前主要在windows 10系统下测试运行，可以直接使用如下语句安装依赖包（安装时需耐心等待若干分钟）。没有安装conda的话需要先参考 https://zhuanlan.zhihu.com/p/102564715 安装miniconda并配置好环境变量，之后再运行下面的语句。
 
 ```Shell
-conda create --name hydrus python=3.7
+conda env create -f environment.yml
+```
+
+安装依赖完成后，在命令行执行下面语句，默认浏览器会自动打开jupyter lab，就可以运行本repo中的程序啦：
+
+```Shell
 conda activate hydrus
-conda config --add channels conda-forge
-# 修改.condarc：固定conda-forge 和 defaults 的顺序后，执行：
-conda config --set channel_priority strict
-conda install -c conda-forge jupyterlab
-conda install -c conda-forge flask
-conda install -c conda-forge numpy
-conda install -c conda-forge pandas
-conda install -c conda-forge feather-format
-conda install -c conda-forge xlrd
-conda install -c conda-forge xarray
-conda install -c conda-forge scikit-learn
-conda install -c conda-forge matplotlib
-conda install -c conda-forge seaborn
-conda install -c conda-forge cartopy
-conda install -c conda-forge geopandas
-conda install -c conda-forge geoplot
-conda install -c conda-forge plotly=4.5.2
-conda install -c plotly plotly-geo=1.0.0
-conda install -c conda-forge bokeh
-conda install -c conda-forge bayesian-optimization
-conda install -c conda-forge platypus-opt
-# 如果直接使用cpu版，本repo中暂时就只使用cpu了
-conda install pytorch torchvision cpuonly -c pytorch
-# 如果是GPU，首先要根据 5-basic-pytorch-tensorflow/1-get-started.ipynb 中内容配置好机器
-conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
-conda install skorch
-conda install -c conda-forge aiohttp
-conda install -c conda-forge cloudpickle
-conda install -c conda-forge distributed
-conda install -c conda-forge joblib
-conda install -c conda-forge pandas-datareader
-conda install -c conda-forge pytables
-conda install -c conda-forge snakeviz
-conda install -c conda-forge ujson
-conda install -c conda-forge gcsfs
-conda install -c conda-forge ipywidgets
-conda install -c conda-forge numba
-conda install -c conda-forge h5py
-conda install -c conda-forge scikit-image
-conda install -c conda-forge dask
-conda install -c conda-forge python-graphviz
-conda install -c conda-forge s3fs
-conda install -c conda-forge loky
-conda install -c conda-forge findspark
-conda env export > environment.yml
+jupyter lab
 ```
 
 本repo中可视化部分有涉及关于GIS方面内容，若对水文中gis的简单学习使用有兴趣，可以关注：[hydroGIS](https://github.com/OuyangWenyu/hydroGIS)。
