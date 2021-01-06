@@ -174,6 +174,8 @@ sudo add-apt-repository \
    stable"
 ```
 
+执行上面这句的时候，代码里需要带上$。
+
 然后可以安装docker-ce了。
 
 ```Shell
@@ -191,11 +193,21 @@ Mac操作系统可以参考这个：[Should You Install Docker with the Docker T
 
 另外，根据[Docker(四)：Docker 三剑客之 Docker Compose](http://www.ityouknow.com/docker/2018/03/22/docker-compose.html)一文的介绍，如果需要构建多容器的应用，还需要使用docker compose来帮助构建，这里最终目的只是构建并运行本项目，所以就暂略这部分，后面用到了再补充。
 
-## 使用 docker build -> ship -> run 本项目
+## 使用 docker build -> run -> ship 本项目
 
 如前所述，docker 的使用就是 build - ship - run images，所以下面就从如何构建镜像开始，而构建的关键就是写 dockerfile，因此先关注如何使用Dockerfiles构建自己的镜像。
 
-在构建本项目之前，先从一些[简单的案例](https://www.docker.com/blog/containerized-python-development-part-1/)开始，看看如何设置一个简单的python环境。和前面2-python-envir.md 中介绍的一样，要运行一个python程序，要先安装需要的包，我们推荐的是conda安装方法，并构建了environment.yml文件，所以使用dockerfile时，我们要把这部分内容包含进来。这里先用一个 pip 的例子，把安装包对应的requirements.txt文件包含在dockerfile中，后面再给出本项目的例子。
+接下来的操作都是在windows home 下安装dockerhub后执行的，但是到挂载本地文件那一步会发现容器内读不到本地的文件夹，个人猜测可能是windows home下用/mnt 文件夹的方式可能不太行，不过不确定，所以还是以 Linux下的操作为主了，因此接下来在windows home下的尝试会用分割线标出，仅供个人后面排查问题留个记录，感兴趣的也可以看看。
+
+另外，如果是 windows 专业版，好像可以直接在dockerhub内配置，就比较方便了，因为我没有用它，所以这里就不记录了。
+
+TODO:在Ubuntu系统下的操作
+
+===================================================================================windows home 版分割线===========================================================================================================================
+
+在构建本项目之前，先从一些[简单的案例](https://www.docker.com/blog/containerized-python-development-part-1/)开始，看看如何设置一个简单的python环境。
+
+和前面2-python-envir.md 中介绍的一样，要运行一个python程序，要先安装需要的包，我们推荐的是conda安装方法，并构建了environment.yml文件，所以使用dockerfile时，我们要把这部分内容包含进来。这里先用一个 pip 的例子，把安装包对应的requirements.txt文件包含在dockerfile中，后面再给出本项目的例子。
 
 相关文件都保存在本文件夹下的app文件夹中了。dockerfile内容如下：
 
@@ -218,20 +230,270 @@ COPY src/ .
 # command to run on container start
 CMD [ "python", "./server.py" ]
 ```
+
 对于Dockerfile中的每条指令或命令，Docker构建器都会生成一个image层并将其堆叠在先前的层上。因此，该过程产生的Docker image只是一个不同层的只读栈。
 
 我们还可以在build命令的输出中观察到各步骤执行的Dockerfile指令。
 
-使用下列代码：
+打开windows终端，进入dockerfile所在文件夹，即本文件夹下的app文件夹，运行下列代码：
 
 ```Shell
-$ sudo docker build -t myimage .
-[ ... Output clipped ... ]
-
-$ sudo docker run -it --rm rp
+docker build -t myimage .
 ```
 
-TODO: 未完待续。。。
+这时候就能看到 dockerhub下已经有了这个刚刚生成的镜像了。
+
+如果想要持续更新里面的内容，则需要重新build，但是我们肯定不想完全从头构建，那么这会比较慢，docker默认采用了 the builder cache mechanism 来完成首次构建之后的构建。
+
+Dockerfile 的指令是按照指定的顺序依次执行的，对于每条指令，builder 都会首先检查镜像的缓存来复用。当检测到有层发生变化的时候，该层以及之后的所有层会被重新构建。所以为了更好地使用docker的这一特性，通常要将经常变化的部分往后放，这样就能最大程度地节省时间了。比如上面的dockerfile写法中，代码是比依赖程序包更常变的，所以将代码写到了最后。可以尝试修改一点代码，比如增加一个print("hello world")，然后重新构建：
+
+```Shell
+docker build -t myimage .
+```
+
+可以发现，构建速度是很快的。
+
+构建完成之后，尝试运行。将image run成container。首先，查看现在有哪些image
+
+```Shell
+docker images
+```
+
+如果想要删除某些 images，可以使用如下语句（删除之前确保没有对应的容器在运行）：
+
+```Shell
+docker image rm [image的id]
+```
+
+如果提示了无法删除，有容器在运行，则执行下列语句将容器删除：
+
+```Shell
+docker container rm [提示的容器id]
+```
+
+然后就可以删除镜像了。当然这些操作在dockerhub中进行会更容易。
+
+下面看看我们如何构建本项目的docker image 并 发布出去。
+
+如一开始说set up环境的时候提到的那样，要运行起程序，我们需要以下几个关键环节：
+
+- 操作系统：因为大部分例子以及docker image都是基于ubuntu的，所以这里也选择Ubuntu
+- miniconda3
+- 用conda 和 本项目的 environment.yml 生成 python 虚拟环境
+- 激活生成的虚拟环境
+- 运行的时候得能使用 jupyter，在主机上能通过浏览器访问到其中的内容
+- 最后是持续的更新
+
+所以接下来就逐个解决，看看 docker 的 build/run/ship 是如何在上面几步骤里面体现的。参考资料：[veggiemonk/awesome-docker](https://github.com/veggiemonk/awesome-docker)
+
+在 awesome-docker 中找到：[Production-ready Docker packaging for Python developers](https://pythonspeed.com/docker/)
+
+里面有非常丰富的关于使用docker创建python环境及程序运行的blog。
+
+也先从一个简单的例子开始，主要参考了：[Activating a Conda environment in your Dockerfile](https://pythonspeed.com/articles/activate-conda-dockerfile/)
+
+docker环境中激活conda有一点点麻烦。假如dockerfile这样写：
+
+```Dockerfile
+FROM continuumio/miniconda3
+
+WORKDIR /app
+
+# Create the environment:
+COPY environment.yml .
+RUN conda env create -f environment.yml
+
+# Activate the environment, and make sure it's activated:
+RUN conda activate myenv
+RUN echo "Make sure flask is installed:"
+RUN python -c "import flask"
+
+# The code to run when container is started:
+COPY run.py .
+ENTRYPOINT ["python", "run.py"]
+```
+
+那么运行到 conda activate myenv 时，是会报错的，“CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.”。因为 容器内在执行：/bin/sh -c "conda activate env"
+
+关于 /bin/sh 啥意思可以参考：[About /bin/sh](http://etutorials.org/Linux+systems/how+linux+works/Chapter+1+The+Basics/1.1+About+bin+sh/)，简而言之，就是默认的代码是用sh执行，但是conda要执行，需要bash环境。
+
+所以这是不会执行 conda activate 命令的，需要加上：RUN conda init bash
+
+```dockerfile
+FROM continuumio/miniconda3
+
+WORKDIR /app
+
+# Make RUN commands use `bash --login`:
+SHELL ["/bin/bash", "--login", "-c"]
+
+# Create the environment:
+COPY environment.yml .
+RUN conda env create -f environment.yml
+
+# Initialize conda in bash config fiiles:
+RUN conda init bash
+
+# Activate the environment, and make sure it's activated:
+RUN conda activate myenv
+RUN echo "Make sure flask is installed:"
+RUN python -c "import flask"
+
+# The code to run when container is started:
+COPY run.py .
+ENTRYPOINT ["python", "run.py"]
+```
+
+不过由于dockerfile中每个run都是一个单独的bash，后面新的run都是新的shell session了。RUN python -c "import flask" 这步就会报错：“ModuleNotFoundError: No module named 'flask'”
+
+因此，要把conda activate命令佳到用户上：RUN echo "conda activate myenv" > ~/.bashrc
+
+```Dockerfile
+FROM continuumio/miniconda3
+
+WORKDIR /app
+
+# Make RUN commands use `bash --login`:
+SHELL ["/bin/bash", "--login", "-c"]
+
+# Create the environment:
+COPY environment.yml .
+RUN conda env create -f environment.yml
+
+# Initialize conda in bash config fiiles:
+RUN conda init bash
+
+# Activate the environment, and make sure it's activated:
+RUN echo "conda activate myenv" > ~/.bashrc
+RUN echo "Make sure flask is installed:"
+RUN python -c "import flask"
+
+# The code to run when container is started:
+COPY run.py .
+ENTRYPOINT ["python", "run.py"]
+```
+
+到这，build已经可以成功了，但是最后一步，在运行的时候还是会报错。因为还需要明确指定是在conda 激活的环境下运行的：ENTRYPOINT ["conda", "run", "-n", "myenv", "python", "run.py"]
+
+```Dockerfile
+FROM continuumio/miniconda3
+
+WORKDIR /app
+
+# Create the environment:
+COPY environment.yml .
+RUN conda env create -f environment.yml
+
+# Make RUN commands use the new environment:
+SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
+
+# Make sure the environment is activated:
+RUN echo "Make sure flask is installed:"
+RUN python -c "import flask"
+
+# The code to run when container is started:
+COPY run.py .
+ENTRYPOINT ["conda", "run", "-n", "myenv", "python", "run.py"]
+```
+
+然后接下来 build 和 run：
+
+```Dockerfile
+docker build -t condatest .
+```
+
+成功 build 之后， 执行run：
+
+```Dockerfile
+docker run condatest
+```
+
+接下来就看看如果 build 和 run 本项目。
+
+首先，需要写dockerfile。根据前面的例子，可以尝试写dockerfile 如下：
+
+```Dockerfile
+FROM continuumio/miniconda3
+
+WORKDIR /hydrus
+
+# Create the environment:
+COPY environment.yml .
+RUN conda env create -f environment.yml
+
+# Make RUN commands use the new environment:
+SHELL ["conda", "run", "-n", "hydrus", "/bin/bash", "-c"]
+```
+
+到这一步，就能实现基本运行环境的构建了。但是还有问题就是如何在运行的时候得能使用 jupyter，在主机上能通过浏览器访问到其中的内容。这就需要添加下列内容。
+
+
+```Dockerfile
+FROM continuumio/miniconda3
+
+WORKDIR /hydrus
+
+# Create the environment:
+COPY environment.yml .
+RUN conda env create -f environment.yml
+
+# Make RUN commands use the new environment:
+SHELL ["conda", "run", "-n", "hydrus", "/bin/bash", "-c"]
+
+# Expose Jupyter port & cmd
+EXPOSE 8888
+CMD jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=/hydrus --allow-root
+```
+
+运行下列代码：
+
+```Dockerfile
+docker build -t hydrustest .
+docker run hydrustest
+```
+
+这样就能运行起jupyter了，但是如果直接使用 localhost:8888，发现弹出来的页面要输入密码，或者token，而目前看不到token，根据页面上的提示，需要到容器中运行 jupyter server list 查看，在windows下dockerhub里，点击运行的容器，选择CLI工具，在打开的容器命令行里执行下列语句就能看到启动的jupyter的token。也可以参考这个的做法：https://forums.docker.com/t/how-to-get-token-and-password-to-work-for-jupyter-datascience-notebook/83649
+
+```Shell
+$ bash
+(base) root@2e15b98dd04c:/hydrus$ conda activate hydrus
+(hydrus) root@2e15b98dd04c:/hydrus$ jupyter server list
+Currently running servers:
+http://localhost:8888/?token=c048d379be3d0beecf234604bb2c0f9d4e7d1c3b7d597a09 :: /hydrus
+(hydrus) root@2e15b98dd04c:/hydrus#$
+```
+
+如上所示， http://localhost:8888/?token=c048d379be3d0beecf234604bb2c0f9d4e7d1c3b7d597a09 即可以在 本地 浏览器中打开的地址。
+
+但是会发现，打开的jupyter没有文件，因为我们还没有把本项目的文件放入容器中，那么盲猜这里有不一样的策略，一种是把运行的文件放到docker容器里；一种是把docker仅仅当作一个环境，文件还是用本机的或者其他地方的。
+
+如果是采用第一种，需要使用COPY指令，但是把所有文件都copy到容器中还是不方便，尤其是文件较多较大的时候，并且在容器中的文件夹和文件应该是不能跟着本地改的，所以个人觉得还是第二种更方便一些，所以查询下相关的资料：https://towardsdatascience.com/a-short-guide-to-using-docker-for-your-data-science-environment-912617b3603e
+
+需要将本地文件夹挂载到container下，有点像一个外接硬盘挂载到linux系统下。具体操作参考了[A Short Guide to Using Docker for Your Data Science Environment](https://towardsdatascience.com/a-short-guide-to-using-docker-for-your-data-science-environment-912617b3603e), [Docker，救你于「深度学习环境配置」的苦海](https://zhuanlan.zhihu.com/p/64493662)还有[How to Run Jupyter Notebook on Docker](https://towardsdatascience.com/how-to-run-jupyter-notebook-on-docker-7c9748ed209f#0ba2)，直接在 docker run 的时候执行下述语句。注意，因为我是windows home版，所以挂载的本地硬盘还是用 /mnt/c/Projects/hydrus 了，如果直接用 C:\Projects\hydrus （这是本项目在我本地windows上的实际位置），虽然也run起来了，但是dockerhub会提示我挂载了windows文件夹是有问题的。
+
+```Shell
+docker run -p 8888:8888 -v /mnt/c/Projects/hydrus:/home/hydrus -t hydrustest
+```
+
+但是问题是在本地电脑上启动jupyter后，还是没有看到挂载的本地硬盘。猜测可能是因为dockerfile中先运行了 jupyter了，再挂载可能看不到了，所以不在dockerfile中写CMD，删除最后一行，然后重新build，之后再run的时候挂载硬盘，然后再**在容器里面**开启jupyter。
+
+```Shell
+jupyter lab --no-browser --ip=0.0.0.0 --allow-root --notebook-dir=/hydrus
+```
+
+还是不行，是不是因为hydrus已经有了，所以硬盘挂载出问题了，所以尝试换一个，删除刚才的容器，然后在主机执行下面语句：
+
+```Shell
+docker run -p 8888:8888 -v /mnt/c/Projects/hydrus:/hydrus/test -t hydrustest
+```
+
+再进入容器查看，发现还是没有。查了下，看到了：[Docker volumes on Windows WSL2](https://stackoverflow.com/questions/63552052/docker-volumes-on-windows-wsl2)，发现可能是自己的 WSL2 没有用对，所以导致文件夹没有挂载上，所以根据docker 官方文档：https://docs.docker.com/docker-for-windows/wsl/#best-practices  重新把其中提到的 “Ensure the distribution runs in WSL 2 mode” 等内容执行下，把 安装的 Ubuntu 也和 docker 整合下（如下图所示），然后再把之前弄得镜像和容器都删除，重新执行一遍再看看能不能挂载上。
+
+![](QQ截图20210106180304.png)
+
+不过试完发现还是没有，所以暂时放弃了。可能需要在linux下试试再看了，也可能需要docker compose了。
+
+===================================================================================windows home 版分割线===========================================================================================================================
 
 关于更多的构建自己的dockerfile的方法可以参考[Python image description on Docker Hub](https://hub.docker.com/_/python/#how-to-use-this-image)
 
@@ -239,7 +501,7 @@ dockerfile 写法可以参考：[docker_practice](https://github.com/yeasy/docke
 
 更多案例可以参考：[The Full Stack Data Scientist Part 2: A Practical Introduction to Docker](https://medium.com/applied-data-science/the-full-stack-data-scientist-part-2-a-practical-introduction-to-docker-1ea932c89b57)
 
-最后补充再一些docker的基本概念--镜像和容器及定制镜像等，如果有需要可以看看。
+最后再补充一些docker的基本概念--镜像和容器及定制镜像等，如果有需要可以看看。
 
 ## 概念补充
 
