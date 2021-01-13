@@ -106,6 +106,8 @@ pip和conda在安装依赖时也有不同。安装包时，pip安装以递归序
 
 先说如何安装依赖工具包。当然你可以使用pip或者conda一个个地安装。但是一个一个地安装显然是比较慢的，最关键的是，可能会有两个不同项目使用同一个包不同版本的情况，那就很麻烦了。所以就有人开发了一个叫做 Virtual Environment 的东西--Virtualenv，这个python工具可以为每个项目创建一个虚拟环境，这样项目互相之间就不会影响了。接下来记录下Virtual Environment及其相关的内容。因为conda和pip的方式不同，所以下面分开记录，个人根据自己的情况自己选择工具，各有优劣，比如对于conda，因为是跨语言的，所以有些外部依赖可以容易安装，但是会有很多python包不在conda中，需要混合使用pip。而虚拟环境或者直接使用pipenv就能随意安装python包，但是它的问题是有可能有些外部依赖会导致python包不能安装成功，这对于经常需要一些外部依赖的水文水资源相关计算来说确实不是很方便，另外有时候会有一些可以用pip而不能用pipenv安装的包，也会造成一些不方便。个人建议可以优先使用conda来配置虚拟环境，当conda安装不了的时候再用pip补充。更多建议可以参考：[Conda: Myths and Misconceptions](https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/)
 
+如果更愿意用 pip，或者有些重要的工具（比如 tensorflow）推荐使用pip安装，那么可以跳至[virtual-environment和pipenv](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/2-python-envir.md#virtual-environment-%E5%92%8C-pipenv)
+
 ### Conda Environment
 
 本小节先简单介绍下conda的使用的一些意见，尤其是和pip混合使用时要注意的内容，然后再看看具体如何用conda管理environment。
@@ -316,7 +318,7 @@ channels:
 .condarc文件在我的win10上，是在 C:\Users\xxx下 ，即用户的主目录下，如果没有channel_priority: strict，在终端执行以下语句可以固定顺序：
 
 ```Shell
-$ conda config --set channel_priority strict
+conda config --set channel_priority strict
 ```
 
 另外，如果需要清理conda的包，可以使用conda clean 命令，conda clean --help 看看自己需要哪个指令，这在自己的硬盘空间不够的时候还是很有用的。
@@ -333,7 +335,15 @@ $ conda config --set channel_priority strict
 
 这种情况下，**每个应用可能需要各自拥有一套“独立”的Python运行环境**。**virtualenv**就是用来为一个应用**创建一套“隔离”的Python运行环境**。
 
-首先，我们用pip安装virtualenv：
+python3.3之后可以直接使用python自带的 venv，用法和virtualenv 差不多，将下面代码中的“virtualenv ”换成“python -m venv ”即可，不过细节可能不同，这里没有尝试，所以就不多说了，还是以virtualenv为主。
+
+在一切开始之前，需要安装python和pip，这点和前面的conda 做法不太一样。可以先安装一个所需版本的python，比如最新版的 Python 3.7： 3.7.9 。
+
+首先，从[python网站](https://www.python.org/downloads/)下载该版本，win10下面直接下载 Windows x86-64 executable installer 安装包即可。
+
+然后点击安装包进行安装，直接选择给出的第一项点击安装即可，下面勾选项一个都不用勾选，可以都取消。即不需要配置python环境（也可以勾选配置，无所谓），因为我们可能在不同的虚拟环境中需要不同版本的python，因此这里没必要指定好python环境。记住刚刚安装的位置，比如我的是在：C:\Users\hust2\AppData\Local\Programs\Python\Python37，在C:\Users\hust2\AppData\Local\Programs\Python\Python37\Scripts 文件夹里有pip工具。
+
+在pip的文件夹下打开命令行,然后用pip安装virtualenv：
 
 ``` bash
 pip install virtualenv
@@ -341,86 +351,82 @@ pip install virtualenv
 
 然后，假定我们要开发一个新的项目，需要一套独立的Python运行环境，可以这么做：
 
-第一步，创建目录：
+第一步，在本文件所在的文件夹下打开命令行，创建目录：
 
 ```bash
 mkdir myproject
 cd myproject
 ```
 
-第二步，创建一个独立的Python运行环境，命名为venv：
-
-```bash
-virtualenv --no-site-packages venv
-```
-
-如果需要指定python版本，那么执行：
+第二步，用virtualenv创建一个独立的Python运行环境（因为没有配置环境，所以需要用绝对路径），环境命名为venv；如果需要指定python版本，则用安装的python来作为-p参数的值，如下所示：
 
 ```Shell
-virtualenv --no-site-packages venv --python=python3.7
+C:\Users\hust2\AppData\Local\Programs\Python\Python37\Scripts\virtualenv venv -p C:\Users\hust2\AppData\Local\Programs\Python\Python37\python.exe
 ```
 
 如果想要删除刚刚创建的虚拟环境，因为我们什么也没装，直接删除venv文件夹就行了。
 
-命令virtualenv就可以创建一个独立的Python运行环境，我们还加上了**参数--no-site-packages**，这样，**已经安装到系统Python环境中的所有第三方包都不会复制过来**，这样，我们就得到了一个不带任何第三方包的“干净”的Python运行环境。
+新建的Python环境被放到当前目录下的venv目录。有了venv这个Python环境，可以用下面的命令激活该环境：
 
-新建的Python环境被放到当前目录下的venv目录。有了venv这个Python环境，可以用source进入该环境：
-
-```bash
-source venv/bin/activate
+```Shell
+.\venv\Scripts\activate
 ```
 
-可以观察命令行，注意到命令提示符变了，**有个(venv)前缀**，表示当前环境是一个名为venv的Python环境。
+可以观察命令行，注意到命令提示符变了，**有个(venv)前缀**，表示当前环境是一个名为venv的Python环境。如果想要更新pip环境，可以使用如下命令：
 
-然后可以正常安装各种第三方包，并运行python命令：
+```Shell
+python -m pip install --upgrade pip
+```
 
-``` bash
-pip install jinja2
+然后可以正常安装各种第三方包，比如安装 numpy：
+
+``` Shell
+pip install numpy
 ```
 
 在venv环境下，用pip安装的包都被安装到venv这个环境下，系统Python环境不受任何影响。也就是说，venv环境是专门针对myproject这个应用创建的。
 
-退出当前的venv环境，使用deactivate命令：
+如果想要退出当前的venv环境，可以使用deactivate命令：
 
-```bash
+```Shell
 deactivate 
 ```
 
 此时就回到了正常的环境，现在pip或python均是在系统Python环境下执行。
 
-完全**可以针对每个应用创建独立的Python运行环境**，这样就可以对每个应用的Python环境进行隔离。
+以上可知，完全**可以针对每个应用创建独立的Python运行环境**，这样就可以对每个应用的Python环境进行隔离。那virtualenv是如何创建“独立”的Python运行环境的呢？原理很简单，就是把系统Python复制一份到virtualenv的环境，用命令 .venv/bin/activate进入一个virtualenv环境时，virtualenv会修改相关环境变量，让命令python和pip均指向当前的virtualenv环境。
 
-virtualenv是如何创建“独立”的Python运行环境的呢？原理很简单，就是把系统Python复制一份到virtualenv的环境，用命令source venv/bin/activate进入一个virtualenv环境时，virtualenv会修改相关环境变量，让命令python和pip均指向当前的virtualenv环境。
-
-说道配置环境，就要提到requirements.txt，接下来的内容参考：[What is the python requirements.txt?](https://www.idkrtm.com/what-is-the-python-requirements-txt/)
+另外还有一个重要的文件requirements.txt必须一提，接下来的内容参考：[What is the python requirements.txt?](https://www.idkrtm.com/what-is-the-python-requirements-txt/)
 
 如果浏览github上的python项目，经常会看到它。它就是一个指定运行项目所需的python packages 的。一般是在项目根目录下。一个requirements.txt形如：
 
+```requirements.txt
 pyOpenSSL==0.13.1
-
 pyparsing==2.0.1
-
 python-dateutil==1.5
+```
 
 每行对应一个package，然后是它的版本号。版本号也很重要，毕竟版本变化之后，容易出bug。
 
-现在考虑一个问题，如果有了requirements.txt，如何安装对应库。首先，看看freeze。
+在刚才的venv虚拟环境下使用下面的命令即可生成requirements.txt文件。
 
 ``` Shell
-pip freeze
+pip freeze >requirements.txt
 ```
 
-通过freeze可以看到已经安装的所有库以及其版本。可以将这些全部拷贝，然后创建一个requirements.txt，放于其中。可以检查下，把自己用不到的库去掉。
+可以看到已经安装的所有库以及其版本（这里只试装了一个numpy，因此只有一个numpy==xxx）。
 
-接下来看看如何根据requirements.txt安装库。
+如果转移到一个新的环境下，可以直接根据requirements.txt安装库，创建好virtual environment，然后激活环境，再在环境中执行下述操作即可。
 
 1. 打开终端
 2. 进入 requirements.txt 所在的文件夹
 3. 运行： pip install -r requirements.txt
 
-以上在virtual environment中执行上述操作更好。
+最后，前面已经说了，pip是不能安装非python的外部依赖的，所以如果有些库需要额外安装，还需要提前手动处理好。
 
-前面提到了pip和virtualenv，其实还有一个更强大的工具pipenv，接下来就记录下其基本内容。本节参考了：[pipenv使用指南](https://crazygit.wiseturtles.com/2018/01/08/pipenv-tour/)，[Pipenv: A Guide to the New Python Packaging Tool](https://realpython.com/pipenv-guide/) 以及 [Pipenv——最好用的python虚拟环境和包管理工具](https://www.cnblogs.com/zingp/p/8525138.html)等。
+前面提到了pip和virtualenv，其实还有一个更强大的工具pipenv，接下来就记录下其基本内容，不过根据一些介绍：https://zhuanlan.zhihu.com/p/81568689 ，这些更高级工具貌似稳定性略差了一些，所以个人建议还是优先使用底层的工具较好，所以到这pip工具的使用学习也可以结束了，如果需要pipenv再了解后续内容。
+
+以下内容主要参考了：[pipenv使用指南](https://crazygit.wiseturtles.com/2018/01/08/pipenv-tour/)，[Pipenv: A Guide to the New Python Packaging Tool](https://realpython.com/pipenv-guide/) 以及 [Pipenv——最好用的python虚拟环境和包管理工具](https://www.cnblogs.com/zingp/p/8525138.html)等。
 
 首先，简单概述下，pipenv是**Python官方推荐的包管理工具**。可以说，它**集成了virtualenv, pip和pyenv三者的功能**。其目的旨在集合了所有的包管理工具的长处，如: npm, yarn, composer等的优点。
 
