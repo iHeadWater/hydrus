@@ -14,6 +14,7 @@
 2. 常用科学计算库
     - numpy
     - pandas
+    - scipy
     - sklearn
 3. 可视化
     - 静态可视化

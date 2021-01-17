@@ -603,11 +603,10 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 .idea
-/4-pytorch-examples/data/mnist/train.csv
 /6-web-crawler/dataset/
-/5-basic-pytorch-tensorflow/data
-/5-rnn-example/data
-/5-basic-pytorch-tensorflow/runs
+/5-basic-pytorch/data
+/5-basic-pytorch/runs
+/5-nn-example/data
 /5-nn-example/cnns/data
 /5-nn-example/nn/data
 __pycache__
