@@ -30,10 +30,16 @@
     - 数据爬取
 7. 并行计算
     - python并行基础
+    
+## 运行本repo步骤
 
-本项目目前主要在windows 10系统下测试运行，可以直接使用如下语句安装依赖包（安装时需耐心等待若干分钟）。没有安装conda的话需要先参考 https://zhuanlan.zhihu.com/p/102564715 安装miniconda并配置好环境变量，之后再运行下面的语句。另外，推荐使用[windows终端](https://docs.microsoft.com/zh-cn/windows/terminal/)执行下面代码。
+本项目目前主要在windows 10系统下测试运行，可以直接使用如下语句安装依赖包（安装时需耐心等待，无科学上网环境可能需要等待几小时）。
+
+没有安装conda的话需要先参考 https://zhuanlan.zhihu.com/p/102564715 安装miniconda并配置好环境变量，之后再运行下面的语句。另外，推荐使用[windows终端](https://docs.microsoft.com/zh-cn/windows/terminal/)执行下面代码。
 
 ```Shell
+# 进入本项目根目录
+cd xx/xx/hydrus
 conda env create -f environment.yml
 ```
 
