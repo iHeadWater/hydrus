@@ -28,7 +28,9 @@ dependencies:
   - platypus-opt
   - pytorch
   - torchvision
+  - tensorboard
   - skorch
+  - optuna
   - aiohttp
   - cloudpickle
   - distributed
@@ -47,3 +49,7 @@ dependencies:
   - s3fs
   - loky
   - findspark
+  - pip
+  - pip:
+    - clearml
+    - trains-agent
