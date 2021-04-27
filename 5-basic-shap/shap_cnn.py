@@ -116,7 +116,7 @@ for epoch in range(1, num_epochs + 1):
 batch = next(iter(test_loader))
 images, _ = batch
 background = images[:100]
-test_images = images[100:103]
+test_images = images[100:110]
 #print(test_images)
 # shap.DeepExplainer是用于解释深度学习模型的
 #shap.KernelExplainer可用于解释所有的模型，尽管它运行时间比其他解释器时间长一点，但是它能够给出一个近似的的Shap values.
@@ -128,4 +128,6 @@ shap_numpy = [np.swapaxes(np.swapaxes(s, 1, -1), 1, 2) for s in shap_values]
 # print(shap_numpy)
 test_numpy = np.swapaxes(np.swapaxes(test_images.numpy(), 1, -1), 1, 2)
 shap.image_plot(shap_numpy, -test_numpy)
+print(test_images)
+
 
