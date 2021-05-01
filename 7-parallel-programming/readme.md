@@ -1,6 +1,8 @@
 # python 并行计算简介
 
-在日常科研工作中，会经常遇到GIS数据的大批量处理，这时候常规的编程手段在速度方面往往达不到自己的需求标准，而在并行计算方面表现较好的GEE由于在国内访问受限，vector和raster交互并行表现一般等原因多少会有些限制，所以很自然地就对GIS并行计算有所需求。另外，水文上也会对高性能计算有需求，很多模型如果期待其速度，同样需要大规模并行计算。因此，这里就简单记录了解下python环境下地并行计算基本知识，以帮助解决科研中会碰到地并行需求。这里主要记录一些python并行计算相关的技术基础，关于并行在GIS或水文中的应用会在https://github.com/OuyangWenyu/hydroGIS 中记录。
+在日常科研工作中，会遇到数据的大批量处理，这时候常规的编程手段在速度方面往往达不到自己的需求标准，需要并行计算。因此，这里简单记录下python环境下并行计算基本知识。
+
+本部分刚刚开始，未完待续。。。
 
 参考资料主要有：
 
@@ -12,6 +14,8 @@
 - [PySpark Tutorial | PySpark Tutorial For Beginners | Apache Spark With Python Tutorial | Simplilearn](https://www.youtube.com/watch?v=5dARTeE6OpU)
 - [PySpark Tutorial | Python Spark | Intellipaat](https://www.youtube.com/watch?v=T6PDeK9kdHY)
 - [Spark Python Notebooks](https://github.com/jadianes/spark-py-notebooks)
+
+以下是一些基本概念。
 
 首先并行计算和并发不太一样，并发是多用户争用CPU，在纷争发生的阶段将被CPU调度器所控制，CPU调度器的功能是决定在一个特定的时刻，哪个worker更适合使用资源。并行更多是指多核环境中同时执行指定的任务，在这些任务中它们不需要并发地接触CPU。
 
