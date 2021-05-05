@@ -43,7 +43,6 @@ dependencies:
   - h5py
   - scikit-image
   - dask
-  - jax
   - python-graphviz
   - s3fs
   - loky
