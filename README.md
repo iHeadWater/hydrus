@@ -26,20 +26,27 @@
     - 常用深度学习框架
     - 常用深度学习工具
     - 一点实例
-6. 科研数据获取
-    - 数据爬取
-7. 并行计算
+6. 加速科学计算
     - python并行基础
+    - 常用高性能科学计算库
+    - 一点分布式计算实例
+7. 科研数据获取
+    - 数据爬取
     
 ## 运行本repo步骤
+
+下载本repo，需要本地预先下载安装好git，如果没有安装那么在[此处](https://git-scm.com/downloads)下载，并点击下载好的安装包安装，安装过程中全部选择默认配置即可。
 
 本项目目前主要在windows 10系统下测试运行，可以直接使用如下语句安装依赖包（安装时需耐心等待，无科学上网环境可能需要等待几小时）。
 
 没有安装conda的话需要先参考 https://zhuanlan.zhihu.com/p/102564715 安装miniconda并配置好环境变量，之后再运行下面的语句。另外，推荐使用[windows终端](https://docs.microsoft.com/zh-cn/windows/terminal/)执行下面代码。
 
 ```Shell
+# 下载本repo
+git clone https://github.com/OuyangWenyu/hydrus.git
+# 或者fork为自己的repo后，从自己的github处下载
 # 进入本项目根目录
-cd xx/xx/hydrus
+cd hydrus
 conda env create -f environment.yml
 ```
 

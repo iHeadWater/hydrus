@@ -5,17 +5,15 @@ channels:
   - pytorch
   - defaults
 dependencies:
-  - python=3.7
+  - python=3.8
   - jupyterlab
-  - flask
-  - numpy
+  - numpy  
   - pandas
   - feather-format
   - xlrd
   - xarray
   - scikit-learn
   - xgboost
-  - shap
   - matplotlib
   - seaborn
   - cartopy
@@ -45,11 +43,11 @@ dependencies:
   - h5py
   - scikit-image
   - dask
+  - jax
   - python-graphviz
   - s3fs
   - loky
-  - findspark
   - pip
   - pip:
     - clearml
-    - trains-agent
+    - clearml-agent
