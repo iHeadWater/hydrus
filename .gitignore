@@ -621,12 +621,13 @@ __pycache__
 /6-high-performance/dask-tutorial-master/*.png
 /6-high-performance/dask-tutorial-master/*.gz
 /6-high-performance/dask-tutorial-master/data/accounts.*.csv
+/6-high-performance/dask-tutorial-master/data/accounts.*.json.gz
 /6-high-performance/dask-tutorial-master/data/accounts.h5
 /6-high-performance/dask-tutorial-master/data/random.hdf5
 /6-high-performance/dask-tutorial-master/data/weather-big
 /6-high-performance/dask-tutorial-master/data/myfile.hdf5
 /6-high-performance/dask-tutorial-master/data/flightjson
-/6-high-performance/dask-tutorial-master/data/nycflights
+/6-high-performance/dask-tutorial-master/data/nycflights.tar.gz
 /6-high-performance/dask-tutorial-master/data/myfile.zarr
 /6-high-performance/dask-tutorial-master/data/accounts.parquet
 /6-high-performance/dask-tutorial-master/dask-worker-space/
