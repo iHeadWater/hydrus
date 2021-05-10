@@ -11,3 +11,5 @@
 - python中常用的并行方式了解
 - 常用的高性能科学计算库
 - 分布式计算如何实践
+
+JAX库是常用的高性能机器学习库，目前windows下必须从源码编译才能使用，稍微麻烦了点，所以暂时在elks库下ubuntu下记录了：[这里](https://github.com/OuyangWenyu/elks/tree/master/technology-basics/technology-basics/jax/readme.md)
