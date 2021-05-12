@@ -4,7 +4,7 @@
 
 ## 主要内容
 
-本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，作用是为像我一样非计算机相关专业，不需要从头到尾完全系统学习的同学提供参考，串联某些基本概念。本repo仍有很多不通畅之处，遇错见谅。继续阅读可以从这里开始：[1-basic-envir/1-get-started.md](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/1-get-started.md)。
+本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，作用是为像我一样非计算机相关专业，不需要从头到尾完全系统学习的同学提供参考，串联某些基本概念。本repo可能仍有很多不通畅之处，遇错见谅。
 
 主要涉及的内容（持续更新中）有：
 
@@ -16,6 +16,7 @@
     - [pandas](https://github.com/OuyangWenyu/hydrus/tree/master/2-pandas-examples)
     - [scipy](https://github.com/OuyangWenyu/hydrus/tree/master/2-scipy-example)
     - [sklearn](https://github.com/OuyangWenyu/hydrus/tree/master/2-sklearn-example)
+    - [xarray](https://github.com/OuyangWenyu/hydrus/tree/master/2-xarray-example)
 3. 可视化
     - [静态可视化](https://github.com/OuyangWenyu/hydrus/tree/master/3-basic-pyviz)
     - [GIS数据可视化](https://github.com/OuyangWenyu/hydrus/tree/master/3-gis-pyviz)
@@ -28,9 +29,11 @@
     - [常用深度学习工具](https://github.com/OuyangWenyu/hydrus/tree/master/5-dl-tools)
     - [一点实例](https://github.com/OuyangWenyu/hydrus/tree/master/5-nn-example)
 6. 加速科学计算
-    - [高性能科学计算](https://github.com/OuyangWenyu/hydrus/tree/master/6-high-performance)
+    - [python并行基础](https://github.com/OuyangWenyu/hydrus/tree/master/6-basic-parallel)
+    - [dask](https://github.com/OuyangWenyu/hydrus/tree/master/6-dask-example)
+    - [numba](https://github.com/OuyangWenyu/hydrus/tree/master/6-numba-example)
 7. 科研数据获取
-    - [数据爬取](https://github.com/OuyangWenyu/hydrus/tree/master/7-web-crawler)
+    - [下载数据](https://github.com/OuyangWenyu/hydrus/tree/master/7-download-data)
     
 ## 运行本repo步骤
 
@@ -58,9 +61,9 @@ conda activate hydrus
 jupyter lab
 ```
 
-本repo中可视化部分有涉及关于GIS方面内容，若对水文中gis的简单学习使用有兴趣，可以关注：[hydroGIS](https://github.com/OuyangWenyu/hydroGIS)。
+可以从这里开始：[1-basic-envir/1-get-started.md](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/1-get-started.md)，如果不熟悉刚刚提到的git和jupyter lab，1-basic-envir/1-get-started.md里也有介绍。
 
-本repo记录的都是纯技术方面内容，其中涉及到的基本常识可以关注[elks](https://github.com/OuyangWenyu/elks)。
+本repo中可视化部分有涉及关于GIS方面内容，若对水文中gis的简单学习使用有兴趣，可以关注：[hydroGIS](https://github.com/OuyangWenyu/hydroGIS)。
 
 **推荐**一些学科科研相关的python学习资料：
 
