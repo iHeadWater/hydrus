@@ -613,6 +613,7 @@ fabric.properties
 __pycache__
 *.py[c,o]
 .ipynb_checkpoints
+/2-xarray-example/tutorial-data
 /6-basic-parallel/parallel-tutorial-master/data
 /6-dask-example/data
 /6-dask-example/dask-worker-space/

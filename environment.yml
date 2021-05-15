@@ -12,6 +12,8 @@ dependencies:
   - feather-format
   - xlrd
   - xarray
+  - bottleneck
+  - netcdf4
   - scikit-learn
   - xgboost
   - matplotlib

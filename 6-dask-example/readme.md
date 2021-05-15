@@ -2,12 +2,6 @@
 
 Dask是一个帮助并行计算的工具。本文件夹下内容就尝试了解并使用 它。
 
-主要参考资料：
-
-- [Dask Tutorial](https://github.com/dask/dask-tutorial)
-- [Speeding up your Algorithms Part 4— Dask](https://towardsdatascience.com/speeding-up-your-algorithms-part-4-dask-7c6ed79994ef)
-- [Robust correlations with xarray and dask](http://martin-jung.github.io/post/2018-xarrayregression/)
-
 Dask在大于内存的数据集上提供多核执行。
 
 可以从高和低的角度理解dask：
@@ -34,7 +28,8 @@ Dask在大于内存的数据集上提供多核执行。
 
 ## Outline
 
-1. [Delayed](01_dask.delayed.ipynb) - 用于并行化通用python代码的单函数方法
+1. 基本数据结构
+2. Delayed - 用于并行化通用python代码的单函数方法
 
 ## 更多链接
 
@@ -43,6 +38,7 @@ Dask在大于内存的数据集上提供多核执行。
     *  [Examples](https://examples.dask.org/)
     *  [Code](https://github.com/dask/dask/)
     *  [Blog](https://blog.dask.org/)
+    *  [Dask Tutorial](https://github.com/dask/dask-tutorial)
 *  Ask for help
     *   [`dask`](http://stackoverflow.com/questions/tagged/dask) tag on Stack Overflow, for usage questions
     *   [github issues](https://github.com/dask/dask/issues/new) for bug reports and feature requests

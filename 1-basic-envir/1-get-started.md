@@ -99,6 +99,20 @@ ssh下下载的方式和https下一样，在github中clone时选择SSH协议即�
 git clone git@github.com:OuyangWenyu/hydrus.git
 ```
 
+### 变化远程仓库地址
+
+有时候 https连接不稳定, 想要切换 ssh, 参考[这里](https://docs.github.com/cn/github/getting-started-with-github/managing-remote-repositories#switching-remote-urls-from-https-to-ssh), 可以这么做:
+
+```Shell
+git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+```
+
+使用下面语句可以查看远程仓库是否已变:
+
+```Shell
+git remote -v
+```
+
 ### add/commit/push
 
 本地git常用的命令就是add/commit/push 三连了

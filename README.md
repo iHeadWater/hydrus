@@ -39,7 +39,7 @@
 
 下载本repo，需要本地预先下载安装好git，如果没有安装那么在[此处](https://git-scm.com/downloads)下载，并点击下载好的安装包安装，安装过程中全部选择默认配置即可。
 
-本项目目前主要在windows 10系统下测试运行，可以直接使用如下语句安装依赖包（安装时需耐心等待，无科学上网环境可能需要等待较长时间）。
+本项目目前主要在windows 10系统下测试运行，可以直接使用如下语句安装依赖包（安装时请耐心等待，可能需要较长时间 ~10mins）。
 
 没有安装conda的话需要先参考 https://zhuanlan.zhihu.com/p/102564715 安装miniconda并配置好环境变量，之后再运行下面的语句。推荐使用[windows终端](https://docs.microsoft.com/zh-cn/windows/terminal/)执行下面代码。
 
