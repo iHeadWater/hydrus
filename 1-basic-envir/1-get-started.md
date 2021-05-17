@@ -16,8 +16,8 @@
 
 在开始python之前先了解一些常见工具的配置和基本使用方法，包括：
 
-- git and github
-- jupyter notebook/lab
+- [git and github](#git-和-github)
+- [jupyter notebook/lab](#jupyter-notebook/lab)
 
 这些内容参考了：[Setup Your Earth Analytics Python, Git, Bash Environment On Your Computer](https://www.earthdatascience.org/workshops/setup-earth-analytics-python/)
 
@@ -298,66 +298,104 @@ git checkout xxx（某个历史版本的哈希值，即git log下显示的每次
 
 ## jupyter notebook/lab
 
-本节内容主要来自一篇[Jupyter Notebooks的指南](https://www.analyticsvidhya.com/blog/2018/05/starters-guide-jupyter-notebook/)。
+本节内容主要参考以下资料。
 
-### 引言
+- [Why Jupyter is data scientists’ computational notebook of choice](https://www.nature.com/articles/d41586-018-07196-1)
+- [利器|JupyterLab 数据分析必备IDE完全指南](https://zhuanlan.zhihu.com/p/67959768)
+- [Reactive, reproducible, collaborative: computational notebooks evolve](https://www.nature.com/articles/d41586-021-01174-w)
 
-如果说有什么数据科学相关领域的工作人员都应该使用或必须了解的工具，那非 Jupyter Notebooks 莫属了（之前也被称为 iPython 笔记本）。Jupyter Notebooks 很强大，功能多，可共享，并且提供了在同一环境中执行数据可视化的功能。
+### 概述
 
-Jupyter Notebooks 允许大家创建和共享文档，从代码到全面的报告都可以。它们能帮助简化工作流程，实现更高的生产力和更便捷的协作。
+Jupyter Notebook 是一种用于科学计算的电子笔记本，可以在它其中嵌入代码，数据和文本来记笔记。该笔记本能够提供交互式计算形式，在这种环境中，我们可以执行代码并立刻看到发生了什么，进而能够有效地对代码和文本进行修改，从而在主题，理论，数据和结果之间建立更紧密的联系。可以说jupyter notebook是用于科学和工程计算笔记的杀手级应用程序。
 
-jupyter lab 可以认为是notebook的升级版，使用更方便，所以直接使用它即可。
+可以认为 JupyterLab 是 Jupyter notebook的新一代版本。相对于 Jupyter Notebook，它的集成性更强，更灵活并且更易扩展。它支持100种多种语言，支持多种文档相互集成。使用 JupyterLab，可以进行数据分析相关的工作，可以进行交互式编程，可以学习社区中丰富的 Notebook 资料（在 GitHub上有超过170万个公共 Jupyter Notebook -- [A gallery of interesting Jupyter Notebooks](https://github.com/jupyter/jupyter/wiki/A-gallery-of-interesting-Jupyter-Notebooks)）。所以这里就直接使用JupyterLab了。
 
-### 安装
+如果已经根据本项目下README文件配置过python环境，那么jupyter lab就已经安装好了。
 
-jupyter lab 不需要单独安装，直接安装anaconda之后就可使用它。安装anacodna时，注意和自己的操作系统匹配，如果是linux注意distro发行版也要匹配。另外2020年，python2就不更新了，所以能用python3还是用python3。
+下面简单了解其基本使用方法。
 
-windows下安装anaconda就直接一路默认即可，安装完毕之后记得配置环境变量，这里给出一个个人安装windows64位 anaconda python3.7版本时的环境配置：
+### 打开jupyterlab
 
-```Text
-xx\anaconda3
-xx\anaconda3\Library\mingw-w64\bin
-xx\anaconda3\Library\bin
-xx\anaconda3\Scripts\bin
-```
-
-另外，这里记录一个个人曾碰到的问题：使用pip安装时遇到了 “Can't install any package via `pip` on windows 10, ssl module in Python is not available” 的情况，这时候可以先配置好自己的环境变量，方式来自：https://github.com/pypa/virtualenv/issues/1139#issuecomment-453865723 ，shriprem commented on Jan 13, 2019的回答。
-
-linux下可以使用如下代码安装：
+进入jupyter lab的方式很简单，进入项目所在文件夹，打开cmd，激活安装jupyter lab的python环境，然后启动即可：
 
 ```Shell
-$ cd /home/wvo5024
-$ curl -O https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
-$ bash  Anaconda3-2019.10-Linux-x86_64.sh
-Anaconda3 will now be installed into this location:
-/home/wvo5024/anaconda3
-...
-installation finished.
-Do you wish the installer to prepend the Anaconda3 install location
-to PATH in your /home/wvo5024 /.bashrc ? [yes|no] yes
-$ source ~/.bashrc
-$ python  --version
-```
-
-以上 /home/wvo5024 表示的是我个人的文件夹名称。
-
-### 开始使用
-
-进入jupyter lab的方式很简单，进入项目所在文件夹，打开cmd，激活安装jupyter lab的python环境，然后输入：
-
-```Shell
+# 激活conda环境
+conda activate hydrus
+# 启动jupyter lab
 jupyter lab
 ```
 
-即可。
+启动后，浏览器会自动打开jupyterlab界面，应该可以看到类似下面的界面：
 
-jupyter lab中有几种cell类型：
+![](pictures/v2-313da6d32657e11ae7d6ed5085ddb9fd_720w.jpg)
 
-- Code——写代码的地方。
+### 基本介绍
+
+界面上边是工具栏,和word之类的工具有些相似；左边栏是总览工具，包括文件浏览器、正在运行的 kernel 列表等；右边是主面板，也是笔记的主体部分，除了可以构建jupyter笔记外，还可以创建并编辑[markdown](https://github.com/younghz/Markdown)文件等，还能打开命令行工具。
+
+jupyter 笔记文件中可以创建使用以下几种cell类型：
+
+- Code——写代码和运行代码的地方。
 - Markdown——写文本的地方。可以在运行一段代码后添加结论、注释等。
 - Raw——这是一个可将笔记本转换成另一种格式（比如 HTML）的命令行工具。
 
 平常主要使用Code 和 Markdown
+
+### 一些使用小技巧
+
+这里日常积累一些jupyter lab使用技巧
+
+#### 快捷键
+
+运行 cell 的快捷键 shift + command，大概会是用到最多次的一个快捷键。
+
+选择 cell 之后，点击空白处，按下m键，代表转为markdown cell，y键代表转为code cell，同理r键代表转为row cell。
+
+快捷键可以在命令板查：
+
+![](pictures/v2-e9e0fe4205328b055ffd8a02207efb54_b.gif)
+
+一个清单可以参考下图：
+
+![](pictures/v2-ba3030b67beda785f9235eb7f41f9291_720w.jpg)
+
+#### 自动补全
+
+与大多数本地集成开发环境（IDE）相同，输入部分代码之后按 tab 键，即可自动补全。Jupyter Lab 中的自动补全功能可以通过不同的颜色和图标，显示出补全的类型。
+
+![](pictures/v2-b5ed4693aebbb3ed1180deae916e9130_b.gif)
+
+#### Magic Code
+
+一些特殊命令（不是内置于 Python 本身）被称为“魔术”命令。魔术命令是以百分号％为前缀的任何命令。
+
+##### %matplotlib
+
+最常用的魔法命令，大概就是 %matplotlib了。它用于指定 matplotlib 后端(backend)。通常使用：
+
+```IPython
+%matplotlib inline
+```
+
+代表使用 inline作为后端，直接在 Notebook 中内嵌图片，并且可以省略掉 plt.show() 这一步骤（后面第三章节介绍可视化时会详细介绍）。
+
+##### ％timeit
+
+％timeit 函数检查任何 Python 语句的执行时间，例如：
+
+![](pictures/v2-a3f8d44a12dc669abcb3da415940c2fc_720w.png)
+
+##### %run
+
+使用 %run 命令，可以在Notebook中运行任意的Python文件。例如：
+
+```IPython
+%run add.py
+```
+
+还有其他一些常用命令，例如 %debug、%load_ext 和 %pwd，完整命令可以参考[这里](https://ipython.readthedocs.io/en/stable/interactive/magics.html)。
+
+### 不只能用来记录Python代码
 
 还可以在Jupyter Notebooks中使用R、Julia和Javascript等其他语言。比如：[Interactive Workflows for C++ with Jupyter](https://blog.jupyter.org/interactive-workflows-for-c-with-jupyter-fe9b54227d92)。如果不感兴趣，下面内容可忽略，environments.yml文件中也不涉及下面的包，如果需要需自行安装。
 
