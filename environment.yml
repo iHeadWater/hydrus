@@ -5,15 +5,17 @@ channels:
   - pytorch
   - defaults
 dependencies:
-  - python=3.7
+  - python=3.8
   - jupyterlab
-  - flask
-  - numpy
+  - numpy  
   - pandas
   - feather-format
   - xlrd
   - xarray
+  - bottleneck
+  - netcdf4
   - scikit-learn
+  - xgboost
   - matplotlib
   - seaborn
   - cartopy
@@ -27,8 +29,13 @@ dependencies:
   - platypus-opt
   - pytorch
   - torchvision
+  - tensorboard
   - skorch
+<<<<<<< HEAD
   - shap
+=======
+  - optuna
+>>>>>>> upstream/master
   - aiohttp
   - cloudpickle
   - distributed
@@ -46,4 +53,7 @@ dependencies:
   - python-graphviz
   - s3fs
   - loky
-  - findspark
+  - pip
+  - pip:
+    - clearml
+    - clearml-agent
