@@ -607,6 +607,7 @@ fabric.properties
 /5-basic-pytorch/tensorboard_logs
 /5-basic-pytorch/runs
 /5-dl-tools/FashionMNIST
+/5-dl-tools/mnist_data
 /5-nn-example/data
 /5-nn-example/cnns/data
 /5-nn-example/nn/data

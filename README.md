@@ -52,6 +52,8 @@ git clone https://github.com/OuyangWenyu/hydrus.git
 # 进入本项目根目录
 cd hydrus
 conda env create -f environment.yml
+# 如果安装太慢无法忍受，可以先用environment-Copy1.yml构建一个仅安装python和jupyterlab的hydrus虚拟环境，后面用到具体的包再安装
+# conda env create -f environment-Copy1.yml
 ```
 
 安装依赖完成后，在命令行执行下面语句，默认浏览器会自动打开jupyter lab，就可以运行本repo中的程序啦：
