@@ -21,6 +21,7 @@ dependencies:
   - cartopy
   - geopandas
   - geoplot
+  - py-xgboost
   - plotly
   - plotly-geo
   - bokeh
@@ -30,7 +31,11 @@ dependencies:
   - torchvision
   - tensorboard
   - skorch
+<<<<<<< HEAD
+  - shap
+=======
   - optuna
+>>>>>>> upstream/master
   - aiohttp
   - cloudpickle
   - distributed
