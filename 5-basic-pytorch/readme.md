@@ -14,7 +14,6 @@
 3. PyTorch中常用的模块了解
 4. PyTorch生态中其他常用工具
     - PyTorch下深度学习管理工具
-    - Skorch库的使用记录
     
 此外，关于PyTorch下的超参数优化，pytorch官方有library：[BoTorch](https://github.com/pytorch/botorch)，本repo下在5-dl-tools文件夹下记录了适用多种ML/DL框架的工具[optuna](https://github.com/optuna/optuna)；关于模型解释，官方有：[captum](https://github.com/pytorch/captum)，本repo下有记录[SHAP](https://github.com/slundberg/shap)这一工具。
 

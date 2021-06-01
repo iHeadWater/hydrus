@@ -7,8 +7,6 @@ channels:
 dependencies:
   - python=3.8
   - jupyterlab
-  - numpy  
-  - pandas
   - feather-format
   - xlrd
   - xarray
@@ -24,12 +22,10 @@ dependencies:
   - plotly
   - plotly-geo
   - bokeh
-  - bayesian-optimization
   - platypus-opt
   - pytorch
   - torchvision
   - tensorboard
-  - skorch
   - optuna
   - aiohttp
   - cloudpickle
