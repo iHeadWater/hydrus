@@ -17,11 +17,9 @@
 在开始python之前先了解一些常见工具的配置和基本使用方法，包括：
 
 - [git and github](#git-和-github)
-- [jupyter notebook/lab](#jupyter-notebook/lab)
+- [jupyter lab](#jupyter-lab)
 
 这些内容参考了：[Setup Your Earth Analytics Python, Git, Bash Environment On Your Computer](https://www.earthdatascience.org/workshops/setup-earth-analytics-python/)
-
-如果需要补充一点计算机常识，以有助于编程快速学习，可以参考b站视频 crash course：[【计算机科学速成课】[40集全/精校] - Crash Course Computer Science](https://www.bilibili.com/video/av21376839)
 
 ## git 和 github
 
@@ -39,7 +37,7 @@ git和github之间关系：我们写代码或者文档更多地肯定还是在�
 
 其他参考资料：[Introduction to Git and GitHub for Python Developers](https://realpython.com/python-git-github-intro/)
 
-最后记录一些常用操作，根据实际使用情况慢慢补充：
+最后记录一些常用操作备查，根据实际使用情况慢慢补充：
 
 ### 配置用户信息
 
@@ -296,7 +294,7 @@ git checkout xxx（某个历史版本的哈希值，即git log下显示的每次
 
 即可回到xxx的那个版本。
 
-## jupyter notebook/lab
+## jupyter lab
 
 本节内容主要参考以下资料。
 

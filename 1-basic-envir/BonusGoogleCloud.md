@@ -149,7 +149,3 @@ GEE一个重要的内容就是可以很容易的导入数据，关于数据部�
 以上就是GEE的简单介绍，更多教材可以参考：[Earth Engine resources for higher education](https://developers.google.com/earth-engine/edu)，有中文教材可学习。
 
 GEE并不是一个面向程序员的工具，掌握GEE更多需要的是GIS以及使用ArcGIS的思维方式，这样才能更好地使用这一强大的工具。
-
-## GEE+Tensorflow
-
-暂略
