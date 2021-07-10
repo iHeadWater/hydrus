@@ -349,11 +349,9 @@ jupyter 笔记文件中可以创建使用以下几种cell类型：
 
 选择 cell 之后，点击空白处，按下m键，代表转为markdown cell，y键代表转为code cell，同理r键代表转为row cell。
 
-快捷键可以在命令板查：
-
 ![](pictures/v2-e9e0fe4205328b055ffd8a02207efb54_b.gif)
 
-一个清单可以参考下图：
+快捷键清单可以参考下图：
 
 ![](pictures/v2-ba3030b67beda785f9235eb7f41f9291_720w.jpg)
 
