@@ -63,7 +63,7 @@ conda activate hydrus
 jupyter lab
 ```
 
-可以从这里开始：[1-basic-envir/1-get-started.md](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir/1-get-started.md)，如果不熟悉刚刚提到的git和jupyter lab，1-basic-envir/1-get-started.md里也有介绍。
+可以从这里开始：[1-basic-envir](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir)，如果不熟悉刚刚提到的git和jupyter lab，1-basic-envir/1-get-started.md里也有介绍。
 
 本repo中可视化部分有涉及关于GIS方面内容，若对水文中gis的简单学习使用有兴趣，可以关注：[hydroGIS](https://github.com/OuyangWenyu/hydroGIS)。
 

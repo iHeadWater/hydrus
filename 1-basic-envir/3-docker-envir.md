@@ -2,6 +2,8 @@
 
 Docker的运用并不是一件容易的事情，所以不存在简单一两行代码就能解决上面说的所有事情的情况。不过如果了解docker是什么，这个过程还是相对简单的。接下来的记录主要参考了：[docker官方文档介绍](https://docs.docker.com/get-started/) 以及 [docker blog](https://www.docker.com/blog/) 下的 [python-env-series](https://www.docker.com/blog/tag/python-env-series/)系列博客。
 
+TODO: 这里未完待续。。。
+
 如果需要更多资料，可以参考：
 
 - [Docker — 从入门到实践](https://github.com/yeasy/docker_practice)

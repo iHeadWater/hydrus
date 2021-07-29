@@ -1,12 +1,12 @@
 name: hydrus
 channels:
   - conda-forge
-  - plotly
-  - pytorch
   - defaults
 dependencies:
   - python
   - jupyterlab
+  - numpy
+  - pillow
   - feather-format
   - xlrd
   - xarray

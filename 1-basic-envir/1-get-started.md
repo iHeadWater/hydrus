@@ -1,25 +1,11 @@
 # 开始前的准备
 
-本文主要参考了前面README.md文件中推荐的：[Intro to earth data science textbook](https://www.earthdatascience.org/courses/intro-to-earth-data-science)，记录开始python编程前的准备工作。
-
-个人学习python的原因可以归纳为以下几点：
-
-- 人工智能算法最常用语言
-- 常用基本科学计算，数据分析，GIS，地球科学等水文水资源相关学科计算库丰富
-- 上手快等
-
-主要目的是为了快速实现科学计算。关于 Open Reproducible Science 可以参考[What Is Open Reproducible Science](https://www.earthdatascience.org/courses/intro-to-earth-data-science/open-reproducible-science/get-started-open-reproducible-science/)，这里贴个图。
-
-![](workflow.png)
-
-说明：本项目大部分内容是在windows 10下jupyter lab（稍后介绍）下完成的，有一部分提到的内容是在Ubuntu18.04下实践的，会有专门说明。另外，windows下推荐使用windows终端：https://www.zhihu.com/question/323284458 ，所以开始之前最好先在windows下安装好“终端”。
-
 在开始python之前先了解一些常见工具的配置和基本使用方法，包括：
 
 - [git and github](#git-和-github)
 - [jupyter lab](#jupyter-lab)
 
-这些内容参考了：[Setup Your Earth Analytics Python, Git, Bash Environment On Your Computer](https://www.earthdatascience.org/workshops/setup-earth-analytics-python/)
+这些内容参考了：[Setup Your Earth Analytics Python, Git, Bash Environment On Your Computer](https://www.earthdatascience.org/workshops/setup-earth-analytics-python/)。这里简单记录了一些基本概念和常用操作，更详细的介绍可以参考[这里](https://github.com/waterDLut/WaterResources/blob/master/tools/writing-tool.md)。
 
 ## git 和 github
 
