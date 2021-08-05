@@ -22,8 +22,13 @@ pyviz包括了Holoviews, geoviews等诸多库，可以和pandas，geopandas等�
 - 如果需要交互式分析数据，那么bokeh和plotly.py是较好的选择
 - 如果涉及到gis数据可视化，如果需要交互式地那么使用plotly.py是比较好的选择，若只是结果分析，那么先尝试使用cartopy是较好的，此外geoplot之于caropy就像seaborn之于matplotlib，也是个可以尝试使用的库。
 
-因此本repo的第三部分就按照上述结构组织，首先是matplotlib和seaborn的使用，然后是交互式的bokeh和plotly.py，以及gis可视化。和其他部分一样，都是边使用边记录，所以持续记录中。
+因此本repo的第三部分就按照上述结构组织：
+
+1. 首先是matplotlib和seaborn的使用（3-basic-pyviz，即本文件夹下的内容）
+2. 然后是gis可视化（3-gis-pyviz）
+3. 最后补充一点交互式的bokeh和plotly.py（3-interactive-pyviz）
 
 关于可视化不错的一些资料：
 
 - [The Python Graph Gallery](https://github.com/holtzy/The-Python-Graph-Gallery)
+- [The Art of Effective Visualization of Multi-dimensional Data](https://towardsdatascience.com/the-art-of-effective-visualization-of-multi-dimensional-data-6c7202990c57)

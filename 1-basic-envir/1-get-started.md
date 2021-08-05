@@ -280,6 +280,12 @@ git checkout xxx（某个历史版本的哈希值，即git log下显示的每次
 
 即可回到xxx的那个版本。
 
+### 其他
+
+最后补充一些实例资料，以供参考。
+
+- 删除不小心提交了的包含大文件的历史commit：[How to remove/delete a large file from commit history in Git repository?](https://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-git-repository)
+
 ## jupyter lab
 
 本节内容主要参考以下资料。

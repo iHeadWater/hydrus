@@ -7,46 +7,23 @@ dependencies:
   - jupyterlab
   - numpy
   - pillow
+  - pandas
+  - openpyxl
   - feather-format
-  - xlrd
-  - xarray
-  - bottleneck
-  - netcdf4
-  - scikit-learn
-  - xgboost
+  - scipy
   - matplotlib
+  - xarray
+  - dask
+  - netCDF4
+  - bottleneck
   - seaborn
   - cartopy
   - geopandas
   - geoplot
+  - pyepsg
   - plotly
-  - plotly-geo
-  - bokeh
   - deap
   - platypus-opt
-  - pytorch
-  - torchvision
-  - tensorboard
-  - shap
-  - optuna
-  - aiohttp
-  - cloudpickle
-  - distributed
-  - joblib
-  - pandas-datareader
-  - pytables
-  - snakeviz
-  - ujson
-  - gcsfs
-  - ipywidgets
-  - numba
-  - h5py
-  - scikit-image
-  - dask
+  - scikit-learn
   - python-graphviz
-  - s3fs
-  - loky
-  - pip
-  - pip:
-    - clearml
-    - clearml-agent
+  - numba

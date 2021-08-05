@@ -4,7 +4,7 @@
 
 ## 主要内容
 
-本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，作用是为像我一样非计算机相关专业，不需要从头到尾完全系统学习的同学提供参考，串联某些基本概念。本repo可能仍有很多不通畅之处，遇错见谅。
+本repo不是一个一步步照做的教程，而是基于个人学习记录改编的笔记，作用是为像我一样非计算机相关专业，不需要从头到尾完全系统学习的同学提供参考，串联某些基本概念。本repo目前仍在编辑中，一直会有更新，内容常会做写调整；且可能仍有一些不通畅之处，遇错见谅。
 
 主要涉及的内容（持续更新中）有：
 
@@ -15,7 +15,6 @@
     - [numpy](https://github.com/OuyangWenyu/hydrus/tree/master/2-numpy-examples)
     - [pandas](https://github.com/OuyangWenyu/hydrus/tree/master/2-pandas-examples)
     - [scipy](https://github.com/OuyangWenyu/hydrus/tree/master/2-scipy-example)
-    - [sklearn](https://github.com/OuyangWenyu/hydrus/tree/master/2-sklearn-example)
     - [xarray](https://github.com/OuyangWenyu/hydrus/tree/master/2-xarray-example)
 3. 可视化
     - [静态可视化](https://github.com/OuyangWenyu/hydrus/tree/master/3-basic-pyviz)
@@ -23,17 +22,13 @@
     - [交互式可视化](https://github.com/OuyangWenyu/hydrus/tree/master/3-interactive-pyviz)
 4. 常用算法库示例
     - [优化计算实例](https://github.com/OuyangWenyu/hydrus/tree/master/4-optimization-example)
-5. 神经网络算法示例
-    - [常用深度学习框架-PyTorch](https://github.com/OuyangWenyu/hydrus/tree/master/5-basic-pytorch)
-    - [常用深度学习框架-Tensorflow](https://github.com/OuyangWenyu/hydrus/tree/master/5-basic-tensorflow)
-    - [常用深度学习工具](https://github.com/OuyangWenyu/hydrus/tree/master/5-dl-tools)
-    - [一点实例](https://github.com/OuyangWenyu/hydrus/tree/master/5-nn-example)
-6. 加速科学计算
-    - [python并行基础](https://github.com/OuyangWenyu/hydrus/tree/master/6-basic-parallel)
-    - [dask](https://github.com/OuyangWenyu/hydrus/tree/master/6-dask-example)
-    - [numba](https://github.com/OuyangWenyu/hydrus/tree/master/6-numba-example)
-7. 科研数据获取
-    - [下载数据](https://github.com/OuyangWenyu/hydrus/tree/master/7-download-data)
+    - [机器学习sklearn](https://github.com/OuyangWenyu/hydrus/tree/master/4-sklearn-example)
+5. 加速科学计算
+    - [python并行基础](https://github.com/OuyangWenyu/hydrus/tree/master/5-basic-parallel)
+    - [dask](https://github.com/OuyangWenyu/hydrus/tree/master/5-dask-example)
+    - [numba](https://github.com/OuyangWenyu/hydrus/tree/master/5-numba-example)
+6. 科研数据获取
+    - [下载数据](https://github.com/OuyangWenyu/hydrus/tree/master/6-download-data)
     
 ## 运行本repo步骤
 
@@ -52,8 +47,7 @@ git clone https://github.com/OuyangWenyu/hydrus.git
 # 进入本项目根目录
 cd hydrus
 conda env create -f environment.yml
-# 如果安装太慢无法忍受，可以先用environment-Copy1.yml构建一个仅安装python和jupyterlab的hydrus虚拟环境，后面用到具体的包再安装
-# conda env create -f environment-Copy1.yml
+# 本repo涉及的库较多，所以安装过程比较慢，为了确保环境安装正确，请耐心等待
 ```
 
 安装依赖完成后，在命令行执行下面语句，默认浏览器会自动打开jupyter lab，就可以运行本repo中的程序啦：
@@ -65,9 +59,13 @@ jupyter lab
 
 可以从这里开始：[1-basic-envir](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir)，如果不熟悉刚刚提到的git和jupyter lab，1-basic-envir/1-get-started.md里也有介绍。
 
-本repo中可视化部分有涉及关于GIS方面内容，若对水文中gis的简单学习使用有兴趣，可以关注：[hydroGIS](https://github.com/OuyangWenyu/hydroGIS)。
+注意如果之前已经fork过本repo了，现在本repo已经更新，而自己那边还没有过同步，那么版本就会落后于本repo，所以需要注意和上游保持一致，同步方法请参考[这里](https://github.com/waterDLut/hydrus/blob/master/1-basic-envir/1-get-started.md#fork%E5%90%8E%E5%90%8C%E6%AD%A5%E6%BA%90%E7%9A%84%E6%96%B0%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9)。
 
-**推荐**一些学科科研相关的python学习资料：
+注意，本repo中可视化部分有涉及关于GIS方面内容，若对水文中gis的简单学习使用有兴趣，可以关注：[hydroGIS](https://github.com/OuyangWenyu/hydroGIS)。
+
+另外，算法库示例中没有包括深度学习神经网络，这部分可以关注：[hydro-dl-basic](https://github.com/waterDLut/hydro-dl-basic)
+
+最后**推荐**一些学科科研相关的python学习资料：
 
 - [Earth Lab - Earth Data Science](https://www.earthdatascience.org/)
 - [Software Carpentry – Teaching Basic Lab Skills for Scientific Computing](https://software-carpentry.org/lessons/index.html)
