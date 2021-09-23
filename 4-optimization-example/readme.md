@@ -1,7 +1,5 @@
 # 优化算法简单示例
 
-本文件夹下记录一些简单易用的优化算法库。
+本文件夹下记录一些简单易用的优化算法库。提供一些示例说明它们的使用，包括水文中非常常见的SCE-UA，以及其他一些常用的如遗传算法等。
 
-Scipy 中有一些常用的基础优化算法，不过在实际应用中，我们经常会面临一些计算复杂度高的优化求解问题，这时候比较常用进化算法。
-
-本文件夹下内容就简单记录下常用进化算法代码库的使用，比如 [DEAP](https://github.com/DEAP/deap)，[platypus](https://github.com/Project-Platypus/Platypus)， [geatpy-dev/geatpy](https://github.com/geatpy-dev/geatpy)等。
+用到的主要代码库包括 [spotpy](https://github.com/thouska/spotpy)，[DEAP](https://github.com/DEAP/deap)，[platypus](https://github.com/Project-Platypus/Platypus)等。
