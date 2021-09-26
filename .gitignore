@@ -609,6 +609,9 @@ __pycache__
 .ipynb_checkpoints
 
 /2-xarray-example/tutorial-data
+/4-optimization-example/parametertrace_algorithms.png
+/4-optimization-example/RosenSCEUA.csv
+/4-optimization-example/SCEUA_hymod.csv
 /5-basic-parallel/parallel-tutorial-master/data
 /5-dask-example/data
 /5-dask-example/dask-worker-space/
