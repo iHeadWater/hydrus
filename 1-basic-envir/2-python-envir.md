@@ -341,7 +341,7 @@ python3.3之后可以直接使用python自带的 venv，用法和virtualenv 差�
 
 首先，从[python网站](https://www.python.org/downloads/)下载该版本，win10下面直接下载 Windows x86-64 executable installer 安装包即可。
 
-然后点击安装包进行安装，直接选择给出的第一项点击安装即可，下面勾选项一个都不用勾选，可以都取消。即不需要配置python环境（也可以勾选配置，无所谓），因为我们可能在不同的虚拟环境中需要不同版本的python，因此这里没必要指定好python环境。记住刚刚安装的位置，比如我的是在：C:\Users\hust2\AppData\Local\Programs\Python\Python37，在C:\Users\hust2\AppData\Local\Programs\Python\Python37\Scripts 文件夹里有pip工具。
+然后点击安装包进行安装，直接选择给出的第一项点击安装即可，下面勾选项一个都不用勾选，可以都取消。即不需要配置python环境（也可以勾选配置，无所谓），因为我们可能在不同的虚拟环境中需要不同版本的python，因此这里没必要指定好python环境，不过如果想方便，也可以配置好，但注意要将python文件根目录、Scripts目录名以及**Library\bin**三个文件路径都放入环境变量下。记住刚刚安装的位置，比如我的是在：C:\Users\hust2\AppData\Local\Programs\Python\Python37，在C:\Users\hust2\AppData\Local\Programs\Python\Python37\Scripts 文件夹里有pip工具。
 
 在pip的文件夹下打开命令行,然后用pip安装virtualenv：
 
@@ -358,7 +358,7 @@ mkdir myproject
 cd myproject
 ```
 
-第二步，用virtualenv创建一个独立的Python运行环境（因为没有配置环境，所以需要用绝对路径），环境命名为venv；如果需要指定python版本，则用安装的python来作为-p参数的值，如下所示：
+第二步，用virtualenv创建一个独立的Python运行环境（如前所述，没有配置环境变量，所以这里直接用了绝对路径），环境命名为venv；如果需要指定python版本，则用安装的python来作为-p参数的值，如下所示：
 
 ```Shell
 C:\Users\hust2\AppData\Local\Programs\Python\Python37\Scripts\virtualenv venv -p C:\Users\hust2\AppData\Local\Programs\Python\Python37\python.exe
