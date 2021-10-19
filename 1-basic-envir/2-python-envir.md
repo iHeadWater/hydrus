@@ -206,11 +206,11 @@ $ jupyter lab
 
 现在可以在命令行里看到：
 
-![](Picture3.png)
+![](pictures/Picture3.png)
 
 可以看到启动的jupyter lab是hydrus环境下的，接下来就可以在jupyter lab中操作了，jupyter lab 导航页面如下所示：
 
-![](Picture2.png)
+![](pictures/Picture2.png)
 
 可以看到，能打开终端，能新建notebook，txt文件等。以下没有特别说明，终端操作都是在jupyter lab中打开的终端上进行，打开一个终端，输入：
 

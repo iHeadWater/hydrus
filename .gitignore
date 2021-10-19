@@ -608,6 +608,8 @@ __pycache__
 *.py[c,o]
 .ipynb_checkpoints
 
+/1-basic-envir/env
+/1-basic-envir/httpie
 /2-xarray-example/tutorial-data
 /4-optimization-example/parametertrace_algorithms.png
 /4-optimization-example/RosenSCEUA.csv

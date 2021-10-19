@@ -12,4 +12,4 @@
 
 说明：本项目大部分内容是在windows 10下jupyter lab（稍后介绍）下完成的，有一部分提到的内容是在Ubuntu18.04下实践的，会有专门说明。另外，windows下推荐使用windows终端：https://www.zhihu.com/question/323284458 。
 
-不过在开始正式了解python前，我们需要先做好一些准备，包括常用工具的安装使用（1-get-started），python环境的构建（2-python-envir）等。
+不过在开始正式了解python前，我们需要先做好一些准备，包括常用工具的安装使用（1-get-started），python环境的构建（2-python-envir）等，其他3到5的内容可以后续自己开始制作工具了再说。
