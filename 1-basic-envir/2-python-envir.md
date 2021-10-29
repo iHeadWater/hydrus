@@ -12,7 +12,11 @@
 
 ## What Code Editor Should I Use?
 
-python中比较常用的IDE有pycharm和vscode，都可以。这里推荐pycharm，windows下安装直接下载安装包：https://www.jetbrains.com/pycharm/download/#section=windows ，点击安装即可。没有特别用途，下载免费的 Community版 就够了。
+python中比较常用的IDE有pycharm和vscode，都可以。本repo下的内容是笔记类型的，所以直接使用的jupyter lab，不过如果需要构建完整的项目，还是推荐使用pycharm 或 vscode，下面就简单记录下这两种工具的基本安装使用方法。
+
+### Pycharm
+
+首先还是推荐pycharm，因为更容易上手一些，windows下安装直接下载安装包（下载免费的 Community版 就够了）：https://www.jetbrains.com/pycharm/download/#section=windows ，点击安装即可。
 
 Ubuntu下可以使用这个链接: https://www.jetbrains.com/pycharm/download/#section=linux 下载安装包。
 
@@ -66,6 +70,153 @@ idea.system.path=${user.home}/.PyCharm20xx.x/system
 比如我的是：idea.config.path=/mnt/sdc/wvo5024/.PyCharm20xx.x/config
 
 然后将原文件夹下的system文件夹删除即可，注意不要删除config文件夹，因为这个idea.properties 文件就在这个文件夹下。
+
+### VSCode
+
+vscode也是一个很常用的编程工具，特别是有些代码只能在linux上运行，但是我们手边又只有windows系统的电脑时，推荐使用 windows下的linux运行程序，这时候编辑代码就推荐vscode工具了。下面介绍也主要基于这点。不过其使用稍微麻烦一点，所以建议先把后续的python环境配置、python基础等搞明白了，在必要的时候再用它，**优先还是选择pycharm**。
+
+首先我们要有windows下的linux系统，具体安装以及其下python的安装可以参考[这里](https://github.com/OuyangWenyu/elks)的REAMDE.md文件中的记录。
+
+接下来安装vscode，可以直接先在windows下安装，去官网下载并安装 vscode，安装一路默认即可。
+
+然后因为配置了win10下的ubuntu，所以vscode会自动提醒是否安装 Remote-WSL 插件，安装即可，这样就能运行 win10下ubuntu文件系统里的代码了。
+
+想进入 win10下的Ubuntu，点击左边栏的远程连接即可：
+
+![](pictures/vscode-ubuntu.png)
+
+这时候可以看到打开一个新界面，左下角显示连接到Ubuntu了。尝试打开终端，可以看到默认的终端是bash了(没有连到WSL时候，默认终端是powershell)。
+
+这样下次你再打开，就会自动连接到ubuntu。
+
+接下来安装ubuntu条件下的vscode插件，按下快捷键Ctrl+Shift+X，进入插件管理页面。在搜索栏输入python。选择插件，点击安装（注意是ubuntu下的，如下图所示）。
+
+![](pictures/QQ截图20211026164025.png)
+
+然后你可以尝试打开一个文件夹，或者创建一个文件夹作为项目工作区域。
+
+接着就配置这个工作区域
+
+![](pictures/QQ截图20211026165042.png)
+
+打开后现在看到的应该是如下界面
+
+![](pictures/QQ截图20211026171908.png)
+
+现在vscode提供了同步设置的功能，可以直接使用自己的github账号同步自己的本地设置到云端。
+
+同时可以看到，有三类不同的设置对象：用户、远程和工作区
+
+![](pictures/QQ截图20211026172108.png)
+
+既然开启了用户同步，这里尝试为用户统一设置。
+
+配置代码检查工具flake8和格式化文本的工具black。
+
+设置界面如下：
+
+![](pictures/QQ截图20211026172637.png)
+
+![](pictures/QQ截图20211026172826.png)
+
+如果你还没有安装flake8和black，后面编辑代码的时候会提示你安装flake8和black到环境中，同意安装即可。
+
+接着可以尝试配置下python 运行和调试工具。
+
+![](pictures/QQ截图20211026175505.png)
+
+然后选择python文件项：
+
+![](pictures/debug-configurations.png)
+
+还有一项重要配置是在vscode中配置python环境（可以参考[这里](https://code.visualstudio.com/docs/python/environments)）。
+
+安装虚拟环境后面会介绍，假设我们安装完毕了，那么接下来vscode的Python 扩展会寻找并使用它在系统路径中发现的第一个 Python 解释器。
+
+要手动选择一个特定的环境的话，按 Ctrl+Shift+P，然后搜索“Python: Select Interpreter ”，选择自己安装的虚拟环境即可。
+
+值得一提的是，如果想让自己的代码能找到自己写的module（后续介绍python的时候会更详细介绍），则需要设置PYTHONPATH变量。通常如果你把源代码放在src文件夹中，把测试放在test文件夹中。然而，当运行测试时，这些测试通常不能访问 src 中的模块，除非你硬编码相对路径。
+
+为了解决这个问题，你可以在VS Code当前工作区（项目根目录）创建一个.env文件如下
+
+```.env
+PYTHONPATH=src
+```
+
+然后在settings.json中将src的路径添加到PYTHONPATH：
+
+```settings.json
+{
+    "python.envFile": "${workspaceFolder}/.env"
+}
+```
+
+保存重启编辑器（必须要重启后才会生效）即可。
+
+注意代码中导入包的时候，语句里就不要再带src了，直接import src下面的module即可，比如文件夹结构是下面这样：
+
+```txt
+-- src
+    |-- core 
+        |-- rectangle.py
+    |-- utils
+        |-- ...
+-- test
+    |-- test.py
+    |-- _init_path.py
+```
+
+那么导入的时候就不要 import src.core了，而是直接import core，否则是会报错的，因为envfile配置的是路径，不是模块（请参考[这里](https://cloud.tencent.com/developer/article/1749664)的解释）。
+
+最后说下测试环境的配置，请参考[这里](https://code.visualstudio.com/docs/python/testing#_configure-tests)。
+
+安装了Python扩展后，VS Code活动栏上就会出现一个测试烧杯的图标--它就是测试浏览器。当打开测试资源管理器时，如果你没有启用测试框架，你会看到一个配置测试的按钮。一旦你选择了配置测试，你将被提示选择一个测试框架和一个包含测试的文件夹，文件夹一般是专门构建的一个test文件夹。
+
+![](pictures/QQ截图20211026210552.png)
+
+选中后 vscode会自动进行 Test discovery工作，如果报错，检查“输出”->“Python”，看看报的什么错。
+
+![](pictures/QQ截图20211026211810.png)
+
+报错的原因可能是pytest等相关测试工具安装的问题，也有可能是代码里有一些包没安装好等，多看看输出台报的错，根据错来判断原因。
+
+如果能够成功让vscode发现test文件，就会看到如下图所示的界面，那么接下来就很容易运行测试代码了，直接能够看到每个函数前面都有“运行”键。
+
+![](pictures/QQ截图20211026221536.png)
+
+也很容易debug，加断点后，点击点击测试函数右边显示的debug按键就能进入debug模式了。
+
+![](pictures/QQ截图20211026231602.png)
+
+但是注意如果安装了pytest-cov覆盖模块，那么VS Code在调试时不会在断点处停止，因为pytest-cov也是用同样的技术来访问正在运行的源代码。为了防止这种行为，在调试测试时在pytestArgs中加入--no-cov，例如加入 "env": {"PYTEST_ADDOPTS": "--no-cov"} 到launch.json中（如下所示，是整个launch.json的配置，configurations下面第二个大括号里的内容就是为了debug而设置的）。
+
+```launch.json
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: 当前文件",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Debug Tests",
+            "type": "python",
+            "request": "test",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {"PYTEST_ADDOPTS": "--no-cov"}
+        }
+    ]
+}
+```
+
+这时候再debug就会成功了。
 
 ## Install Python
 

@@ -5,6 +5,8 @@ channels:
 dependencies:
   - python
   - jupyterlab
+  - black
+  - nbqa
   - numpy
   - pillow
   - pandas
