@@ -70,11 +70,11 @@ p.s.：最后补充一点虚拟机的概念。虚拟机是 Docker 容器的前�
 
 虚拟机本质上是真实计算机的仿真，它像真实计算机一样执行程序。vm在使用hypervisor的物理机器上运行。hypervisor是是一段vm在其上运行的软件、固件或硬件。hypervisors是运行在物理机（主机）上的。主机提供包括RAM和CPU的虚拟机。RAM和CPU资源在虚拟机间可以分配。运行在主机上的VM也称为guest machine。guest machine包括应用和需要运行应用的东西，比如system binaries and libraries。还有它还携带了自己的整个虚拟化硬件堆栈，包括虚拟化的网络适配器、存储和CPU，这意味着它还拥有自己完整的guest operating system。总之形式如下：
 
-![](1_RKPXdVaqHRzmQ5RPBH_d-g.png)
+![](../pictures/1_RKPXdVaqHRzmQ5RPBH_d-g.png)
 
 而容器不像VM那样能提供硬件的虚拟化，容器提供的是操作系统级别的虚拟化。容器看起来就像一个VM。例如，它们有专用的处理空间，可以作为根用户执行命令，有专用的网络接口和IP地址，允许自定义路由和iptable规则，可以挂载文件系统，等等。其最大的区别是**容器之间共享主机系统的内核**。容器只打包用户空间，而不像VM那样打包内核或虚拟硬件。每个容器都有自己的独立用户空间，允许多个容器在一台主机上运行。
 
-![](1_V5N9gJdnToIrgAgVJTtl_w.png)
+![](../pictures/1_V5N9gJdnToIrgAgVJTtl_w.png)
 
 简单了解下足够了，暂时没必要更深入的区别分析。
 
@@ -491,7 +491,7 @@ docker run -p 8888:8888 -v /mnt/c/Projects/hydrus:/hydrus/test -t hydrustest
 
 再进入容器查看，发现还是没有。查了下，看到了：[Docker volumes on Windows WSL2](https://stackoverflow.com/questions/63552052/docker-volumes-on-windows-wsl2)，发现可能是自己的 WSL2 没有用对，所以导致文件夹没有挂载上，所以根据docker 官方文档：https://docs.docker.com/docker-for-windows/wsl/#best-practices  重新把其中提到的 “Ensure the distribution runs in WSL 2 mode” 等内容执行下，把 安装的 Ubuntu 也和 docker 整合下（如下图所示），然后再把之前弄得镜像和容器都删除，重新执行一遍再看看能不能挂载上。
 
-![](QQ截图20210106180304.png)
+![](../pictures/QQ截图20210106180304.png)
 
 不过试完发现还是没有，所以暂时放弃了。可能需要在linux下试试再看了，也可能需要docker compose了。
 

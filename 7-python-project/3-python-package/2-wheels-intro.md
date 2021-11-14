@@ -1,17 +1,8 @@
-# 写一个别人方便用的python工具需要的配置
+# Wheels
 
-之前要使用别人的python包时，使用conda或者pip就能轻松的安装好，不需要从源码开始，很方便。然后写自己的python包时直接调用它们就行了，对于自己构建的python模块，也是直接调用就行。但是，如果你想要让自己的程序让程序之外整个系统上都能随意使用时，当你想让别人也能轻松地使用你的module时，这就不足够了。前者通常要求我们向module增加一个setup.py文件，后者则需要我们将程序打包发送到PyPI（这样别人就能pip安装了）。
+前一节中提到了轮子，这里主要参考 [What Are Python Wheels and Why Should You Care?](https://realpython.com/python-wheels/)了解下 Python .whl 文件。它是 Python 中很少被讨论的部分，但它们对 Python 软件包的安装过程是很重要的。如果你用 pip 安装了一个 Python 包，那么很可能它已经使安装过程变得更快、更有效率。
 
-下面具体内容主要参考了：
-
-- [What Are Python Wheels and Why Should You Care?](https://realpython.com/python-wheels/)
-- [How to Publish an Open-Source Python Package to PyPI](https://realpython.com/pypi-publish-python-package/#using-the-real-python-reader)
-- [the-hitchhikers-guide-to-packaging](https://the-hitchhikers-guide-to-packaging.readthedocs.io/en/latest/quickstart.html)
-- [Writing a Python Package](https://towardsdatascience.com/writing-a-python-package-561146e53351)
-
-## Wheels
-
-先了解下 Python .whl 文件，或称 wheels 轮子。它是 Python 中很少被讨论的部分，但它们对 Python 软件包的安装过程是很重要的。如果你用 pip 安装了一个 Python 包，那么很可能它已经使安装过程变得更快、更有效率。
+## 轮子简介
 
 轮子是Python生态系统的一个组成部分，有助于使包的安装工作正常进行。它们允许在软件包分发过程中实现更快的安装和更多的稳定性。
 
@@ -160,7 +151,7 @@ python -m pip install -U wheel setuptools
 
 轮子类型之间的差异是由它们支持的Python版本和它们是否针对特定的平台决定的。下面是对轮子变化之间差异的一个浓缩的总结
 
-![](pictures/QQ截图20211019102557.jpg)
+![](../pictures/QQ截图20211019102557.jpg)
 
 可以用相对较少的设置建立通用轮子和纯Python轮子，但平台轮子可能需要一些额外的步骤。
 
@@ -245,7 +236,7 @@ delocate-wheel <path-to-wheel.whl>  # For macOS
 
 pycld3 包依赖于 libprotobuf，这不是一个通常安装的库。如果你看一下 pycld3 macOS 轮子，那么你会看到 libprotobuf.22.dylib 包含在那里。这是一个动态链接的共享库，被捆绑在轮子里
 
-![](pictures/QQ截图20211019104157.jpg)
+![](../pictures/QQ截图20211019104157.jpg)
 
 轮子与libprotobuf预包装在一起。.dylib类似于Unix的.so文件或Windows的.dll文件。
 
@@ -265,7 +256,7 @@ setup(
 
 ### Building Wheels in Continuous Integration
 
-除了在你的本地机器上构建轮子之外，另一个办法是在你的项目的CI管道（后续文档介绍）中自动构建它们。
+除了在你的本地机器上构建轮子之外，另一个办法是在你的项目的CI管道（后续会补充介绍）中自动构建它们。
 
 有无数的CI解决方案与主要的代码托管服务集成。其中包括 Azure DevOps、BitBucket Pipelines、Circle CI、GitLab、GitHub Actions、Jenkins 和 Travis CI 等等。
 
@@ -354,81 +345,3 @@ python -m twine upload dist/*
 ```
 
 由于sdist和bdist_wheel都默认输出到dist/，你可以安全地告诉twine使用shell通配符（dist/\*）上传dist/下的所有东西。
-
-## 一个简单的例子（未完待续）
-
-构建一个新项目的几个步骤：
-
-### 1. Lay out your project
-
-最小的 python 项目是两个文件。一个setup.py文件，描述关于你的项目的元数据，和一个包含Python代码的文件，实现你的项目的功能。
-
-在这个例子中，我们将在项目(mypackage文件夹)中增加一些内容，以提供典型的最小项目布局。我们将创建一个完整的 Python 包，一个带有 __init__.py 文件的目录。这预示着未来的增长，因为我们项目的源代码可能会超过一个单一的模块文件。
-
-我们还将创建一个README.txt文件，描述你的项目的概况，以及一个包含你的项目的许可证的LICENSE.txt文件。
-
-这就够了，可以开始了。一个项目通常会有一些其他类型的文件，请参阅安排你的文件和目录结构，以了解一个更完整的项目的例子。
-
-你的项目现在看起来就像这样：
-
-```
-mypackage
-    LICENSE.txt
-    README.md
-    setup.py
-    src/
-        __init__.py
-```
-
-### 2. Describe your project
-
-setup.py 文件是一个 Python 项目的核心。它描述了关于你的项目的所有元数据。有相当多的字段可以添加到项目中，使其具有描述项目的丰富元数据集。然而，只有三个必须的字段：名称、版本和包。如果你希望在Python Package Index (PyPI)上发布你的包，名称字段必须是唯一的。版本字段可以跟踪项目的不同版本。packages 字段描述了你在项目中放置 Python 源代码的位置。
-
-我们的初始 setup.py 也将包括关于许可证的信息，并将重新使用 README.txt 文件中的 long_description 字段。
-
-setup.py文件是pip会在给定文件夹中寻找的文件。它使用能用来执行打包的setuptools工具。它其中内容包括包的名称，包的简短描述以及作者的信息，还有python版本。
-
-mypackage文件夹下有示例setup.py文件。
-
-### 3. Create your first release
-
-然后我们就可以尝试用用它，在本文件夹下打开terminal，执行：
-
-```Shell
-pip install .
-```
-
-此时输入：
-
-```Shell
-pip list
-```
-
-应该能看到有一个hello包。
-
-在执行pip install . 语句的过程中，会创建一个wheel文件以用于发布包，然后使用wheel文件安装包到site-package文件夹中，如果要从网上下载其他包，则会在pkgs文件夹中创建缓存。
-
-pip实际上就是一个从PyPI（Python Package Index）安装包的包安装器，是基于setuptools构建的。任何人都可以提交自己的包到PyPI上，全球的人都可以通过pip install your-package-name 来安装你上传的包。
-
-从用户角度描述使用Distribution Utilities程序（“Distutils”）及其扩展在 Python 打包中的当前状态，描述如何通过构建包和安装第三方来扩展标准 Python 的功能：第三方包、模块和扩展。
-
-Python 以其“batteries included”的理念而闻名，并拥有丰富的标准库。不过，作为一种流行语言，第三方包的数量远远大于标准库包的数量。因此，最终有必要了解如何在 Python 中使用、查找和创建包。
-
-手动安装需要的额外软件包可能很乏味。因此，Python 有一个打包系统，允许人们以标准格式分发他们的程序和库，以便于安装和使用它们。除了分发包之外，Python 还为贡献包提供了一个中心服务。此服务称为 Python 包索引 (PyPI)。
-
-一个package就是指一个拥有 \_\_init\_\_.py 文件的文件夹，比如本文件夹下执行：
-
-```Shell
-mkdir mypackage
-cd mypackage
-type nul > __init__.py
-echo "# A Package" > __init__.py
-cd ..
-```
-
-这会创建一个能被导入的包。
-
-### 4. Register your package with the Python Package Index (PyPI)
-
-### 5. Upload your release, then grab your towel and save the Universe!
-

@@ -30,3 +30,6 @@ dependencies:
   - scikit-learn
   - python-graphviz
   - numba
+  - pytest
+  - ipytest
+  - twine

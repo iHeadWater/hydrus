@@ -778,4 +778,4 @@ pipenv --rm
 
 总之，就是如果你需要很多外部程序，完成前面python及其环境的安装之后，还是有很多麻烦事。这也就是为什么要使用docker的motivation之一。
 
-docker 部分放在了本文件夹下的 3-python-docker.md 文件中。
+docker 部分放在了最后第七章构建python项目中，等后续自己实际用到了再了解不迟。

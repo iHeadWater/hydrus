@@ -29,6 +29,8 @@
     - [numba](https://github.com/OuyangWenyu/hydrus/tree/master/5-numba-example)
 6. 科研数据获取
     - [下载数据](https://github.com/OuyangWenyu/hydrus/tree/master/6-download-data)
+7. 构建python项目
+    - [如何构建自己的python项目](https://github.com/OuyangWenyu/hydrus/tree/master/7-python-project)
     
 ## 运行本repo步骤
 
