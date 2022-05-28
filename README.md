@@ -1,6 +1,6 @@
 # hydrus
 
-水文水资源（Hydrology and Water Resources）方面利用python做模型model、算法algorithm等科学计算工作所需的基础技能树学习。
+水文水资源（Hydrology and Water Resources）研究和应用中使用Python的基础教程
 
 ## 主要内容
 
@@ -20,52 +20,50 @@
     - [静态可视化](https://github.com/OuyangWenyu/hydrus/tree/master/3-basic-pyviz)
     - [GIS数据可视化](https://github.com/OuyangWenyu/hydrus/tree/master/3-gis-pyviz)
     - [交互式可视化](https://github.com/OuyangWenyu/hydrus/tree/master/3-interactive-pyviz)
-4. 常用算法库示例
-    - [优化计算实例](https://github.com/OuyangWenyu/hydrus/tree/master/4-optimization-example)
-    - [机器学习sklearn](https://github.com/OuyangWenyu/hydrus/tree/master/4-sklearn-example)
-5. 加速科学计算
-    - [python并行基础](https://github.com/OuyangWenyu/hydrus/tree/master/5-basic-parallel)
-    - [dask](https://github.com/OuyangWenyu/hydrus/tree/master/5-dask-example)
-    - [numba](https://github.com/OuyangWenyu/hydrus/tree/master/5-numba-example)
-6. 科研数据获取
-    - [下载数据](https://github.com/OuyangWenyu/hydrus/tree/master/6-download-data)
-7. 构建python项目
-    - [如何构建自己的python项目](https://github.com/OuyangWenyu/hydrus/tree/master/7-python-project)
     
 ## 运行本repo步骤
 
 下载本repo，需要本地预先下载安装好git，如果没有安装那么在[此处](https://git-scm.com/downloads)下载，并点击下载好的安装包安装，安装过程中全部选择默认配置即可。
 
-本项目目前主要在windows 10系统下测试运行，可以直接使用如下语句安装依赖包（安装时请耐心等待，可能需要较长时间 ~10mins）。
+本项目在Windowsn和Linux系统下均可运行，启动前，先在conda的base环境下启动jupyter lab。
 
-没有安装conda的话需要先参考 https://zhuanlan.zhihu.com/p/102564715 安装miniconda并配置好环境变量，之后再运行下面的语句。推荐使用[windows终端](https://docs.microsoft.com/zh-cn/windows/terminal/)执行下面代码。
+执行下面语句，如果第一步就报错，说明你还没有安装conda，需要先参考 https://zhuanlan.zhihu.com/p/102564715 安装miniconda并配置好环境变量，再执行下面语句
 
 ```Shell
-# terminal 里 启动cmd
-cmd.exe
-# 下载本repo
-git clone https://github.com/OuyangWenyu/hydrus.git
-# 或者fork为自己的repo后，从自己的github处下载
+# 激活conda的base环境
+conda activate
+# 安装jupyterlab（如果base下没有jupyterlab的话）
+conda install jupyterlab
+```
+之后再运行下面的语句。
+
+```Shell
+# fork为自己的repo后，从自己的github处下载本项目
+git clone "你的hydrus github仓库的ssh地址"
 # 进入本项目根目录
 cd hydrus
+# 安装运行代码所需的包
 conda env create -f environment.yml
-# 本repo涉及的库较多，所以安装过程比较慢，为了确保环境安装正确，请耐心等待
 ```
 
-安装依赖完成后，在命令行执行下面语句，默认浏览器会自动打开jupyter lab，就可以运行本repo中的程序啦：
+接下来就可以运行本repo中的程序啦：
 
 ```Shell
+# 激活hydrus环境
 conda activate hydrus
+# 将hydrus环境添加到jupyterlab Launcher显示的kernel
+python -m ipykernel install --user --name hydrus --display-name "hydrus"
+# 启动jupyterlab
 jupyter lab
 ```
 
-可以从这里开始：[1-basic-envir](https://github.com/OuyangWenyu/hydrus/blob/master/1-basic-envir)，如果不熟悉刚刚提到的git和jupyter lab，1-basic-envir/1-get-started.md里也有介绍。
+然后打开任意一个.ipynb文件，如果弹出提示“Select Kernel”，请选择hydrus，接着就可以运行打开的文件了。
 
-注意如果之前已经fork过本repo了，现在本repo已经更新，而自己那边还没有过同步，那么版本就会落后于本repo，所以需要注意和上游保持一致，同步方法请参考[这里](https://github.com/waterDLut/hydrus/blob/master/1-basic-envir/1-get-started.md#fork%E5%90%8E%E5%90%8C%E6%AD%A5%E6%BA%90%E7%9A%84%E6%96%B0%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9)。
+可以从这里开始：[1-basic-envir](https://github.com/iHeadWater/hydrus/blob/master/1-basic-envir)，如果不熟悉刚刚提到的git和jupyter lab，1-basic-envir/1-get-started.md里也有介绍。
+
+注意如果之前已经fork过本repo了，现在本repo已经更新，而自己那边还没有过同步，那么版本就会落后于本repo，所以需要注意和上游保持一致，同步方法请参考[这里](https://github.com/iHeadWater/hydrus/blob/master/1-basic-envir/1-get-started.md#fork%E5%90%8E%E5%90%8C%E6%AD%A5%E6%BA%90%E7%9A%84%E6%96%B0%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9)。
 
 注意，本repo中可视化部分有涉及关于GIS方面内容，若对水文中gis的简单学习使用有兴趣，可以关注：[hydroGIS](https://github.com/OuyangWenyu/hydroGIS)。
-
-另外，算法库示例中没有包括深度学习神经网络，这部分可以关注：[hydro-dl-basic](https://github.com/waterDLut/hydro-dl-basic)
 
 最后**推荐**一些学科科研相关的python学习资料：
 

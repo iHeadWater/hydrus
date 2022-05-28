@@ -4,32 +4,18 @@ channels:
   - defaults
 dependencies:
   - python
-  - jupyterlab
-  - black
-  - nbqa
+  - ipykernel
   - numpy
-  - pillow
   - pandas
   - openpyxl
   - feather-format
   - scipy
   - matplotlib
   - xarray
-  - dask
   - netCDF4
-  - bottleneck
+  - dask
   - seaborn
   - cartopy
   - geopandas
   - geoplot
-  - pyepsg
   - plotly
-  - spotpy
-  - deap
-  - platypus-opt
-  - scikit-learn
-  - python-graphviz
-  - numba
-  - pytest
-  - ipytest
-  - twine

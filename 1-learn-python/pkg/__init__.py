@@ -1,1 +1,1 @@
-A = ['quux', 'corge', 'grault']
+A = ["quux", "corge", "grault"]

@@ -387,7 +387,7 @@ jupyter 笔记文件中可以创建使用以下几种cell类型：
 
 还可以在Jupyter Notebooks中使用R、Julia和Javascript等其他语言。比如：[Interactive Workflows for C++ with Jupyter](https://blog.jupyter.org/interactive-workflows-for-c-with-jupyter-fe9b54227d92)。如果不感兴趣，下面内容可忽略，environments.yml文件中也不涉及下面的包，如果需要需自行安装。
 
-- 要在 Jupyter 中启用 R，需要 IRKernel。直接使用conda安装即可:conda install -c r r-essentials ；R语言最常见的编辑器是RStudio，也可以使用 VSCode等。
+- 要在 Jupyter 中启用 R，需要 IRKernel，官方安装方式请参考：https://github.com/IRkernel/IRkernel 。R语言最常见的编辑器是RStudio，也可以使用 VSCode等。
 - Julia，如果你是一位 Julia 用户，你也能在 Jupyter Notebooks 中使用 Julia！你可以查看这篇为 Julia 用户学习数据科学而编写的全面介绍文章，其中有一个章节就是关于如何在 Jupyter 环境中使用 Julia：https://www.analyticsvidhya.com/blog/2017/10/comprehensive-tutorial-learn-data-science-julia-from-scratch/ ；jupyterlab的julia插件安装方式可以参考[How to Add Julia to Jupyter Notebook](https://datatofish.com/add-julia-to-jupyter/)，Julia本身也有类似jupyter的Pluto工具可用；
 - JavaScript， IJavascript kernel。这个 GitHub 库包含了在不同操作系统上安装这个 kernel 的各个步骤：https://github.com/n-riesco/ijavascript。注意，在使用它之前，你必需要先安装好 Node.js 和 npm。
 
