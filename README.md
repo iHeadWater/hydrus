@@ -25,9 +25,9 @@
 
 下载本repo，需要本地预先下载安装好git，如果没有安装那么在[此处](https://git-scm.com/downloads)下载，并点击下载好的安装包安装，安装过程中全部选择默认配置即可。
 
-本项目在Windowsn和Linux系统下均可运行，启动前，先在conda的base环境下启动jupyter lab。
+本项目在Windowsn和Linux系统下均可运行，启动前，先在conda的base环境下启动jupyter lab。如果没有jupyterlab就执行下面语句。
 
-执行下面语句，如果第一步就报错，说明你还没有安装conda，需要先参考 https://zhuanlan.zhihu.com/p/102564715 安装miniconda并配置好环境变量，再执行下面语句
+如果第一步就报错，说明你还没有安装conda，需要先参考 https://zhuanlan.zhihu.com/p/102564715 安装miniconda并配置好环境变量，再执行下面语句
 
 ```Shell
 # 激活conda的base环境
@@ -37,25 +37,29 @@ conda install jupyterlab
 ```
 之后再运行下面的语句。
 
+如果已经有了jupyterlab，就从这里开始：
+
 ```Shell
 # fork为自己的repo后，从自己的github处下载本项目
 git clone "你的hydrus github仓库的ssh地址"
 # 进入本项目根目录
 cd hydrus
-# conda安装太慢，因此这里使用mamba安装各种包，conda list可以查看base环境下是否已经有mamba，如果没有执行：
+# 创建hydrus环境
+conda create -n hydrus
+# 激活hydrus环境
+conda activate hydrus
+# conda安装太慢，因此这里使用mamba安装各种包
 conda install mamba -c conda-forge
 # 然后使用mamba安装运行代码所需的包
-mamba env create -f environment.yml
+mamba install -c conda-forge ipykernel numpy pandas openpyxl feather-format scipy matplotlib xarray netCDF4 dask seaborn cartopy geopandas geoplot plotly
 ```
 
 接下来就可以运行本repo中的程序啦：
 
 ```Shell
-# 激活hydrus环境
-conda activate hydrus
 # 将hydrus环境添加到jupyterlab Launcher显示的kernel
 python -m ipykernel install --user --name hydrus --display-name "hydrus"
-# 启动jupyterlab
+# 如果你本来就是在jupyterlab下的terminal中执行就不必再启动jupyterlab了，否则就执行下面语句打开jupyterlab
 jupyter lab
 ```
 
