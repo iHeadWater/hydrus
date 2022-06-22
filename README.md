@@ -42,8 +42,10 @@ conda install jupyterlab
 git clone "你的hydrus github仓库的ssh地址"
 # 进入本项目根目录
 cd hydrus
-# 安装运行代码所需的包
-conda env create -f environment.yml
+# conda安装太慢，因此这里使用mamba安装各种包，conda list可以查看base环境下是否已经有mamba，如果没有执行：
+conda install mamba -c conda-forge
+# 然后使用mamba安装运行代码所需的包
+mamba env create -f environment.yml
 ```
 
 接下来就可以运行本repo中的程序啦：
