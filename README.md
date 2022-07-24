@@ -45,7 +45,7 @@ git clone "你的hydrus github仓库的ssh地址"
 # 进入本项目根目录
 cd hydrus
 # 创建hydrus环境
-conda create -n hydrus
+conda create -n hydrus python=3.9
 # 激活hydrus环境
 conda activate hydrus
 # conda安装太慢，因此这里使用mamba安装各种包
